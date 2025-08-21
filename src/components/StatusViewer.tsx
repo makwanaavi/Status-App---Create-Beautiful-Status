@@ -329,7 +329,7 @@ const StatusViewer: React.FC = () => {
         </motion.div>
 
         {/* Keyboard Hints */}
-        <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 text-white/60 text-[10px] sm:text-xs space-y-1">
+        <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 text-pink-500 text-[13px] sm:text-xs space-y-1">
           <p>← → Navigate</p>
           <p>L Like • S Save • Esc Close</p>
         </div>
