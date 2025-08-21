@@ -77,19 +77,19 @@ const StatusGrid: React.FC = () => {
 
       {/* Pagination Controls */}
       {filteredStatuses.length > cardsPerPage && (
-        <div className="flex justify-center items-center mt-8 space-x-2">
+        <div className="flex justify-center items-center mt-8 space-x-12">
           <button
-            className="px-4 py-2 rounded bg-gray-200 text-pink-500 font-medium disabled:opacity-50"
+            className="px-4 py-2 rounded bg-gray-200 text-pink-500 font-medium disabled:opacity-50 mt-12"
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
           >
             Prev
           </button>
-          <span className="px-2 text-gray-700">
+          <span className="px-2 text-gray-700 mt-12">
             Page {page} of {totalPages}
           </span>
           <button
-            className="px-4 py-2 rounded bg-gray-200 text-pink-500 font-medium disabled:opacity-50"
+            className="px-4 py-2 rounded bg-gray-200 text-pink-500 font-medium disabled:opacity-50 mt-12"
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
           >

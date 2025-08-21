@@ -30,7 +30,7 @@ const Header: React.FC = () => {
                 <span className="text-white font-bold text-3xl">S</span>
               </div>
               <h1 className="text-3xl font-bold bg-pink-600 bg-clip-text text-transparent">
-               <Link to={"/"}>StatusApp</Link>
+                <Link to={"/"}>StatusApp</Link>
               </h1>
             </div>
           </div>

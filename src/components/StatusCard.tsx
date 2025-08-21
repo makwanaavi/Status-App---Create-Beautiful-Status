@@ -14,7 +14,7 @@ interface StatusCardProps {
   index: number;
 }
 
-const StatusCard: React.FC<StatusCardProps> = ({ status, index }) => {
+const StatusCard: React.FC<StatusCardProps> = ({ status }) => {
   const dispatch = useDispatch();
 
   const handleLike = (e: React.MouseEvent) => {
@@ -45,20 +45,13 @@ const StatusCard: React.FC<StatusCardProps> = ({ status, index }) => {
     dispatch(setSelectedStatus(status));
   };
 
-  const cardHeight = Math.floor(Math.random() * 200) + 250; // Random height between 250-450px
-
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.6, delay: index * 0.12, ease: "easeOut" }}
-      whileHover={{ y: -10, scale: 1.04 }}
-      className="group cursor-pointer"
-      style={{ height: `${cardHeight}px` }}
+    <div
+      className="group cursor-pointer m-2" // Add margin for spacing
       onClick={handleView}
     >
       <div
-        className="relative w-full h-full rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/10"
+        className="relative w-full h-[320px] sm:h-[340px] md:h-[260px] lg:h-[380px] xl:h-[400px] max-w-[95vw] sm:max-w-[260px] md:max-w-[280px] !xl:max-w-[400px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/10 bg-clip-padding"
         style={{
           background: status.background,
           fontFamily: status.font,
@@ -68,7 +61,7 @@ const StatusCard: React.FC<StatusCardProps> = ({ status, index }) => {
         <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 backdrop-blur-[2px] transition-all duration-500" />
 
         {/* Content */}
-        <div className="relative h-full p-6 flex flex-col justify-between">
+        <div className="relative h-full p-4 sm:p-6 flex flex-col justify-between">
           {/* Main Text */}
           <div className="flex-1 flex items-center justify-center">
             <p
@@ -98,11 +91,7 @@ const StatusCard: React.FC<StatusCardProps> = ({ status, index }) => {
         </div>
 
         {/* Hover Actions */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileHover={{ opacity: 1, scale: 1 }}
-          className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-all duration-500"
-        >
+        <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-all duration-500">
           <motion.button
             whileHover={{ scale: 1.15, rotate: 5 }}
             whileTap={{ scale: 0.9 }}
@@ -143,9 +132,9 @@ const StatusCard: React.FC<StatusCardProps> = ({ status, index }) => {
           >
             <Share2 className="w-4 h-4" />
           </motion.button>
-        </motion.div>
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
