@@ -187,7 +187,7 @@ const StatusViewer: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 mx-9"
+        className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 mx-9 mt-12"
         onClick={handleClose}
       >
         {/* Navigation Arrows */}
@@ -265,18 +265,6 @@ const StatusViewer: React.FC = () => {
               transition={{ delay: 0.4 }}
               className="flex items-center justify-between mt-4"
             >
-              <div className="flex items-center space-x-2">
-                {selectedStatus.authorAvatar && (
-                  <img
-                    src={selectedStatus.authorAvatar}
-                    alt={selectedStatus.author}
-                    className="w-8 h-8 rounded-full object-cover border-2 border-white/20"
-                  />
-                )}
-                <span className="text-xs font-medium text-white/90">
-                  {selectedStatus.author}
-                </span>
-              </div>
               <span className="text-[10px] uppercase tracking-wide bg-white/20 px-3 py-1 rounded-full text-white/90 backdrop-blur-sm">
                 {selectedStatus.category}
               </span>
@@ -357,11 +345,6 @@ const StatusViewer: React.FC = () => {
               </span>
             </div>
           </motion.div>
-          {/* Keyboard Hints */}
-          <div className="absolute bottom-3 right-3 text-pink-500 text-[11px] sm:text-xs space-y-1 text-right">
-            <p>← → Navigate</p>
-            <p>L Like • S Save • Esc Close</p>
-          </div>
         </motion.div>
       </motion.div>
     </AnimatePresence>
