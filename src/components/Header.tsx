@@ -1,9 +1,9 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Search, Plus, Heart, Bookmark, Menu } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { RootState } from '../store/store';
-import { setSearchQuery, setEditorOpen } from '../store/slices/editorSlice';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Search, Plus, Heart, Bookmark, Menu } from "lucide-react";
+import { motion } from "framer-motion";
+import { RootState } from "../store/store";
+import { setSearchQuery, setEditorOpen } from "../store/slices/editorSlice";
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <motion.header 
+    <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200 w-full"
@@ -28,7 +28,7 @@ const Header: React.FC = () => {
         <div className="flex flex-col sm:flex-row items-center justify-between h-auto sm:h-16 py-2 sm:py-0 gap-2 sm:gap-0">
           {/* Logo */}
           <div className="flex items-center mb-2 sm:mb-0">
-            <motion.div 
+            <motion.div
               whileHover={{ scale: 1.05 }}
               className="flex items-center space-x-3"
             >

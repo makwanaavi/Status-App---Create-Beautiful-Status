@@ -19,17 +19,8 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  currentUser: {
-    id: '1',
-    name: 'Creative User',
-    username: '@creative_user',
-    avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=400',
-    bio: 'Creating beautiful statuses daily ✨',
-    followers: 1240,
-    following: 890,
-    statusesCount: 125,
-  },
-  isAuthenticated: true,
+  currentUser: null,
+  isAuthenticated: false,
   savedStatuses: [],
   followedUsers: [],
 };

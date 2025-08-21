@@ -10,7 +10,7 @@ export const mockStatuses: Status[] = [
     "authorAvatar": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400",
     "background": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     "font": "Playfair Display",
-    "color": "#333333",
+    "color": "#ffffff",
     "likes": 221,
     "saves": 112,
     "isLiked": false,
