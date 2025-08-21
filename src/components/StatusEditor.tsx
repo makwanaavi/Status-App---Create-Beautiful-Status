@@ -193,7 +193,7 @@ const StatusEditor: React.FC = () => {
                 <select
                   value={font}
                   onChange={(e) => dispatch(setFont(e.target.value))}
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 >
                   {availableFonts.map((fontName) => (
                     <option key={fontName} value={fontName} style={{ fontFamily: fontName }}>
