@@ -16,6 +16,7 @@
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
+  background-color: white;
 }
 
 /* Custom gradient backgrounds */
