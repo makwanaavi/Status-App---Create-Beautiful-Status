@@ -20,26 +20,19 @@ const Header: React.FC = () => {
   };
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200 w-full"
-    >
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200 w-full">
       <div className="w-full mx-auto px-2 sm:px-4 lg:px-8">
         <div className="flex flex-col sm:flex-row items-center justify-between h-auto sm:h-16 py-2 sm:py-0 gap-2 sm:gap-0">
           {/* Logo */}
           <div className="flex items-center mb-2 sm:mb-0">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="flex items-center space-x-3"
-            >
+            <div className="flex items-center space-x-3">
               <div className="w-12 h-12 bg-pink-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-3xl">S</span>
               </div>
               <h1 className="text-3xl font-bold bg-pink-600 bg-clip-text text-transparent">
-                StatusApp
+               <Link to={"/"}>StatusApp</Link>
               </h1>
-            </motion.div>
+            </div>
           </div>
 
           {/* User Menu */}
@@ -67,15 +60,13 @@ const Header: React.FC = () => {
 
             {/* Actions */}
             <div className="flex items-center space-x-2 sm:space-x-4">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <button
                 onClick={openEditor}
                 className="flex items-center space-x-2 bg-pink-600 text-white px-3 sm:px-4 py-2 rounded-full hover:shadow-lg transition-shadow text-sm sm:text-base"
               >
                 <Plus className="w-4 h-4" />
                 <span className="hidden sm:inline">Create</span>
-              </motion.button>
+              </button>
 
               <motion.button
                 whileHover={{ scale: 1.1 }}
@@ -117,7 +108,7 @@ const Header: React.FC = () => {
           </>
         </div>
       </div>
-    </motion.header>
+    </header>
   );
 };
 

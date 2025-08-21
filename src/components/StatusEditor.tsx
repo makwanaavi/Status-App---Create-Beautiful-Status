@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Type, Palette, Image, Download, Share2 } from 'lucide-react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../store/store';
+import React, { useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, Type, Palette, Image, Download, Share2 } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/store";
 import {
   setText,
   setFont,
@@ -12,8 +12,8 @@ import {
   setAlignment,
   setEditorOpen,
   resetEditor,
-} from '../store/slices/editorSlice';
-import { addStatus } from '../store/slices/statusSlice';
+} from "../store/slices/editorSlice";
+import { addStatus } from "../store/slices/statusSlice";
 
 const StatusEditor: React.FC = () => {
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const StatusEditor: React.FC = () => {
     const newStatus = {
       id: Date.now().toString(),
       text: text.trim(),
-      category: 'Custom',
+      category: "Custom",
       author: currentUser.name,
       authorAvatar: currentUser.avatar,
       background,
@@ -52,9 +52,9 @@ const StatusEditor: React.FC = () => {
       saves: 0,
       isLiked: false,
       isSaved: true,
-      createdAt: new Date().toISOString().split('T')[0],
-      tags: ['custom', 'personal'],
-      type: 'quote' as const,
+      createdAt: new Date().toISOString().split("T")[0],
+      tags: ["custom", "personal"],
+      type: "quote" as const,
     };
 
     dispatch(addStatus(newStatus));
@@ -66,7 +66,7 @@ const StatusEditor: React.FC = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     canvas.width = 800;
@@ -74,10 +74,15 @@ const StatusEditor: React.FC = () => {
 
     // Create gradient background
     let fillStyle;
-    if (background.includes('gradient')) {
-      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-      gradient.addColorStop(0, '#667eea');
-      gradient.addColorStop(1, '#764ba2');
+    if (background.includes("gradient")) {
+      const gradient = ctx.createLinearGradient(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+      gradient.addColorStop(0, "#667eea");
+      gradient.addColorStop(1, "#764ba2");
       fillStyle = gradient;
     } else {
       fillStyle = background;
@@ -90,17 +95,22 @@ const StatusEditor: React.FC = () => {
     ctx.fillStyle = color;
     ctx.font = `${fontSize * 2}px ${font}`;
     ctx.textAlign = alignment as CanvasTextAlign;
-    ctx.textBaseline = 'middle';
+    ctx.textBaseline = "middle";
 
-    const x = alignment === 'left' ? 50 : alignment === 'right' ? canvas.width - 50 : canvas.width / 2;
-    
+    const x =
+      alignment === "left"
+        ? 50
+        : alignment === "right"
+        ? canvas.width - 50
+        : canvas.width / 2;
+
     // Word wrap
-    const words = text.split(' ');
+    const words = text.split(" ");
     const lines = [];
-    let currentLine = '';
+    let currentLine = "";
 
     for (const word of words) {
-      const testLine = currentLine + (currentLine ? ' ' : '') + word;
+      const testLine = currentLine + (currentLine ? " " : "") + word;
       const metrics = ctx.measureText(testLine);
       if (metrics.width > canvas.width - 100) {
         lines.push(currentLine);
@@ -119,7 +129,7 @@ const StatusEditor: React.FC = () => {
     });
 
     // Download
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.download = `status-${Date.now()}.png`;
     link.href = canvas.toDataURL();
     link.click();
@@ -136,7 +146,6 @@ const StatusEditor: React.FC = () => {
         className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
       >
         <div className="h-full flex flex-col md:flex-row">
-          
           {/* Canvas Area */}
           <div className="flex-1 flex items-center justify-center p-2 sm:p-4 md:p-8">
             <motion.div
@@ -173,7 +182,9 @@ const StatusEditor: React.FC = () => {
           >
             {/* Header */}
             <div className="p-4 sm:p-6 border-b border-gray-200 flex items-center justify-between">
-              <h2 className="text-lg sm:text-xl font-bold text-gray-800">Status Editor</h2>
+              <h2 className="text-lg sm:text-xl font-bold text-gray-800">
+                Status Editor
+              </h2>
               <button
                 onClick={handleClose}
                 className="w-8 h-8 rounded-full bg-gray-100 hover:bg-pink-600 flex items-center justify-center transition-colors"
@@ -196,7 +207,11 @@ const StatusEditor: React.FC = () => {
                   className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 >
                   {availableFonts.map((fontName) => (
-                    <option key={fontName} value={fontName} style={{ fontFamily: fontName }}>
+                    <option
+                      key={fontName}
+                      value={fontName}
+                      style={{ fontFamily: fontName }}
+                    >
                       {fontName}
                     </option>
                   ))}
@@ -213,7 +228,9 @@ const StatusEditor: React.FC = () => {
                   min="12"
                   max="48"
                   value={fontSize}
-                  onChange={(e) => dispatch(setFontSize(Number(e.target.value)))}
+                  onChange={(e) =>
+                    dispatch(setFontSize(Number(e.target.value)))
+                  }
                   className="w-full"
                 />
               </div>
@@ -247,14 +264,18 @@ const StatusEditor: React.FC = () => {
                   Text Alignment
                 </label>
                 <div className="flex space-x-2">
-                  {['left', 'center', 'right'].map((align) => (
+                  {["left", "center", "right"].map((align) => (
                     <button
                       key={align}
-                      onClick={() => dispatch(setAlignment(align as 'left' | 'center' | 'right'))}
+                      onClick={() =>
+                        dispatch(
+                          setAlignment(align as "left" | "center" | "right")
+                        )
+                      }
                       className={`flex-1 py-2 px-4 rounded-lg border transition-colors ${
                         alignment === align
-                          ? 'bg-purple-100 border-purple-500 text-purple-700'
-                          : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                          ? "bg-purple-100 border-purple-500 text-purple-700"
+                          : "border-gray-300 text-gray-700 hover:bg-gray-50"
                       }`}
                     >
                       {align.charAt(0).toUpperCase() + align.slice(1)}
@@ -275,7 +296,9 @@ const StatusEditor: React.FC = () => {
                       key={index}
                       onClick={() => dispatch(setBackground(bg))}
                       className={`w-full h-12 rounded-lg border-2 transition-all ${
-                        background === bg ? 'border-purple-500 scale-105' : 'border-gray-200'
+                        background === bg
+                          ? "border-purple-500 scale-105"
+                          : "border-gray-200"
                       }`}
                       style={{ background: bg }}
                     />
