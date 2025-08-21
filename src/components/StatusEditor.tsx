@@ -136,6 +136,7 @@ const StatusEditor: React.FC = () => {
         className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
       >
         <div className="h-full flex flex-col md:flex-row">
+          
           {/* Canvas Area */}
           <div className="flex-1 flex items-center justify-center p-2 sm:p-4 md:p-8">
             <motion.div

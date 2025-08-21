@@ -13,7 +13,7 @@ const CategoryFilter: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-white/50 backdrop-blur-sm border-b border-gray-200 sticky top-16 z-40">
+    <div className="w-full bg-pink-500/10 backdrop-blur-sm border-b border-gray-200 sticky top-16 z-40">
       <div className="max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-4">
         <div className="flex space-x-2 overflow-x-auto scrollbar-hide pb-2">
           {categories.map((category, index) => (
