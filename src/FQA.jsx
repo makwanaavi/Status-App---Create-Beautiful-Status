@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./components/Header";
 
-const FQA: React.FC = () => {
+const FQA= () => {
   return (
     <>
       <Header />

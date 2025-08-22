@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./components/Header";
 
-const About: React.FC = () => {
+const About= () => {
   return (
     <>
       <Header />

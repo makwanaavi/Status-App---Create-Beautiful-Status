@@ -1,14 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
-import { RootState } from "../store/store";
 import StatusCard from "./StatusCard";
 
-const StatusGrid: React.FC = () => {
+const StatusGrid = () => {
   const { filteredStatuses, loading } = useSelector(
-    (state: RootState) => state.status
+    (state) => state.status
   );
-  const gridRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef(null);
   const [page, setPage] = useState(1);
   const cardsPerPage = 20;
   const totalPages = Math.ceil(filteredStatuses.length / cardsPerPage);
@@ -16,7 +15,7 @@ const StatusGrid: React.FC = () => {
   useEffect(() => {
     if (gridRef.current) {
       const grid = gridRef.current;
-      const resizeGridItem = (item: HTMLElement) => {
+      const resizeGridItem = (item) => {
         const gridRowHeight = parseInt(
           window.getComputedStyle(grid).getPropertyValue("grid-auto-rows")
         );
@@ -32,7 +31,7 @@ const StatusGrid: React.FC = () => {
 
       const resizeAllGridItems = () => {
         const allItems = grid.querySelectorAll(".grid-item");
-        allItems.forEach((item) => resizeGridItem(item as HTMLElement));
+        allItems.forEach((item) => resizeGridItem(item));
       };
 
       // Initial resize
@@ -115,4 +114,5 @@ const StatusGrid: React.FC = () => {
   );
 };
 
+export default StatusGrid;
 export default StatusGrid;

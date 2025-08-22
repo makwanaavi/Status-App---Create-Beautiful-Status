@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Type, Palette, Image, Download, Share2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
 import {
   setText,
   setFont,
@@ -12,12 +11,12 @@ import {
   setAlignment,
   setEditorOpen,
   resetEditor,
-} from "../store/slices/editorSlice";
-import { addStatus } from "../store/slices/statusSlice";
+  addStatus,
+} from "../Redux/Action";
 
-const StatusEditor: React.FC = () => {
+const StatusEditor = () => {
   const dispatch = useDispatch();
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef(null);
   const {
     text,
     font,
@@ -28,23 +27,21 @@ const StatusEditor: React.FC = () => {
     isEditorOpen,
     availableFonts,
     availableBackgrounds,
-  } = useSelector((state: RootState) => state.editor);
-
-  const { currentUser } = useSelector((state: RootState) => state.user);
+  } = useSelector((state) => state.editor);
 
   const handleClose = () => {
     dispatch(setEditorOpen(false));
   };
 
   const handleSave = () => {
-    if (!text.trim() || !currentUser) return;
+    if (!text.trim()) return;
 
     const newStatus = {
       id: Date.now().toString(),
       text: text.trim(),
       category: "Custom",
-      author: currentUser.name,
-      authorAvatar: currentUser.avatar,
+      author: "Anonymous",
+      authorAvatar: "", // or provide a default avatar URL if you want
       background,
       font,
       color,
@@ -335,3 +332,4 @@ const StatusEditor: React.FC = () => {
 };
 
 export default StatusEditor;
+

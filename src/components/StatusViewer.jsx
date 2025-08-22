@@ -10,17 +10,16 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
 import {
   setSelectedStatus,
   toggleLike,
   toggleSave,
-} from "../store/slices/statusSlice";
+} from "../Redux/Action";
 
-const StatusViewer: React.FC = () => {
+const StatusViewer = () => {
   const dispatch = useDispatch();
   const { selectedStatus, filteredStatuses } = useSelector(
-    (state: RootState) => state.status
+    (state) => state.status
   );
 
   const handleClose = () => {
@@ -147,7 +146,7 @@ const StatusViewer: React.FC = () => {
 
   // Keyboard navigation
   useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
+    const handleKeyPress = (e) => {
       if (!selectedStatus) return;
 
       switch (e.key) {
@@ -351,4 +350,5 @@ const StatusViewer: React.FC = () => {
   );
 };
 
+export default StatusViewer;
 export default StatusViewer;
