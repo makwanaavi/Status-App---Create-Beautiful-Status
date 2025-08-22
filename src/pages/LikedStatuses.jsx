@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import StatusCard from "../components/StatusCard";
 import Header from "../components/Header";
 import CategoryFilter from "../components/CategoryFilter";
+// import Footer from "../components/Footer";
+import Footer from "../components/Footer";
 
 const LikedStatuses = () => {
   const { statuses } = useSelector((state) => state.status);
@@ -26,9 +28,12 @@ const LikedStatuses = () => {
     <>
       <Header />
       {/* Category Filter Dropdown */}
-    
-      <CategoryFilter />
-      <section className="py-8 px-4 mx-12">
+      <div className="bg-white py-4">
+        <div className="container mx-auto px-4">
+          <CategoryFilter />
+        </div>
+      </div>
+      <section className="py-8 px-4 max-w-7xl mx-auto min-h-screen">
         <h2 className="text-2xl font-bold mb-6 text-pink-600">
           Liked Statuses
         </h2>
@@ -37,36 +42,25 @@ const LikedStatuses = () => {
             No liked statuses yet.
           </div>
         ) : (
-          <div
-            className="flex flex-wrap gap-8 sm:gap-10"
-            style={{
-              justifyContent: "flex-start",
-            }}
-          >
+          <div className="flex gap-4">
             {pageLiked.map((status, idx) => (
               <div
                 key={status.id}
-                className="flex justify-center items-stretch"
-                style={{ flex: "1 0 260px", maxWidth: 340 }}
+                className="flex justify-center items-stretch h-full"
               >
-                <div className="w-full h-full flex">
-                  <StatusCard status={status} index={idx} />
-                </div>
+                <StatusCard status={status} index={idx} />
               </div>
             ))}
             {/* Empty slots to fill up to 24 cards */}
             {Array.from({ length: emptySlots }).map((_, idx) => (
-              <div
-                key={`empty-liked-${idx}`}
-                className="flex justify-center items-stretch opacity-0"
-                style={{ flex: "1 0 260px", maxWidth: 340, minHeight: 320 }}
-              >
+              <div key={`empty-liked-${idx}`} className="opacity-0 h-full">
                 {/* Empty placeholder */}
               </div>
             ))}
           </div>
         )}
       </section>
+      <Footer />
     </>
   );
 };
