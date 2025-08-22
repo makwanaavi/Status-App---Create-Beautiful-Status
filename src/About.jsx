@@ -1,12 +1,10 @@
 import React from "react";
 import Header from "./components/Header";
-import CategoryFilter from "./components/CategoryFilter";
 
 const About= () => {
   return (
     <>
       <Header />
-      <CategoryFilter />
       <div className="container mx-auto py-8">
         <h2 className="text-2xl font-bold mb-4">About StatusApp</h2>
         <p className="mb-4">
