@@ -1,105 +1,138 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// You may need to install react-icons: npm install react-icons
+import { useSelector } from "react-redux";
 import { FaInstagram, FaTwitter, FaFacebook, FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
+  // Get categories from Redux state
+  const { statuses } = useSelector((state) => state.status);
+  const categories = Array.from(
+    new Set(statuses.map((s) => s.category))
+  ).filter(Boolean);
+
+  // Split categories into two rows
+  const mid = Math.ceil(categories.length / 2);
+  const catRows = [categories.slice(0, mid), categories.slice(mid)];
+
   const linkSections = [
     {
       title: "Quick Links",
-      links: ["Home", "Best Sellers", "Offers & Deals", "Contact Us", "FAQs"],
-    },
-    {
-      title: "Need Help?",
-      links: [
-        "Delivery Information",
-        "Return & Refund Policy",
-        "Payment Methods",
-        "Track your Order",
-        "Contact Us",
-      ],
+      links: ["Home", "About Us", "Contact Us", "FAQs"],
     },
   ];
 
   return (
-    <footer className="px-4 md:px-20 py-12 bg-gradient-to-br from-pink-50 via-white to-purple-100 shadow-lg mt-16">
-      <div className="flex flex-col md:flex-row items-start justify-between gap-14 py-12 border-b border-gray-300 text-gray-600">
-        {/* Logo and About */}
-        <div className="flex flex-col items-start mb-6 md:mb-0 max-w-xs">
-          <div className="flex items-center space-x-4 mb-4">
-            <div className="w-16 h-16 bg-pink-600 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-white font-extrabold text-4xl">S</span>
+    <footer className="relative bg-gradient-to-br from-pink-100 via-white to-purple-100 shadow-2xl mt-24">
+      {/* Wave SVG Divider */}
+      <div className="absolute top-0 left-0 w-full -translate-y-full pointer-events-none">
+        <svg
+          viewBox="0 0 1440 120"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-24"
+        >
+          <path
+            d="M0,60 C360,120 1080,0 1440,60 L1440,120 L0,120 Z"
+            fill="#f472b6"
+            fillOpacity="0.2"
+          />
+        </svg>
+      </div>
+      <div className="relative z-10 px-6 md:px-24 py-16">
+        <div className="flex flex-col md:flex-row items-start justify-between gap-20 py-12 border-b border-gray-200 text-gray-600">
+          {/* Logo and About */}
+          <div className="flex flex-col gap-4 items-start mb-10 md:mb-0 max-w-xs">
+            <div className="flex items-center mb-2 sm:mb-0">
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 bg-pink-600 rounded-lg flex items-center justify-center shadow-md">
+                  <span className="text-white font-bold text-3xl">S</span>
+                </div>
+                <h1 className="text-2xl sm:text-3xl font-bold bg-pink-600 bg-clip-text text-transparent select-none">
+                  <Link to={"/"}>Status</Link>
+                </h1>
+              </div>
             </div>
-            <h1 className="text-3xl font-extrabold bg-pink-600 bg-clip-text text-transparent select-none">
-              <Link to={"/"}>Status</Link>
-            </h1>
+            <p className="text-base text-gray-500 mb-8">
+              Discover, create, and share the best status updates for every mood
+              and moment.
+            </p>
           </div>
-          <p className="text-base text-gray-500 mb-4">
-            Discover, create, and share the best status updates for every mood
-            and moment.
-          </p>
-          {/* Newsletter */}
-          <form className="flex w-full mt-2">
-            <input
-              type="email"
-              placeholder="Subscribe to newsletter"
-              className="rounded-l-lg px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400 w-full"
-            />
-            <button
-              type="submit"
-              className="bg-pink-600 text-white px-4 py-2 rounded-r-lg font-semibold hover:bg-pink-700 transition"
-            >
-              Subscribe
-            </button>
-          </form>
-        </div>
-        {/* Links */}
-        <div className="flex flex-wrap justify-between w-full md:w-[45%] gap-10">
-          {linkSections.map((section, index) => (
-            <div key={index}>
-              <h3 className="font-bold text-lg text-gray-900 mb-4">
-                {section.title}
+          {/* Links & Categories */}
+          <div className="flex flex-1 flex-col sm:flex-row gap-12 w-full md:w-auto">
+            {/* Quick Links */}
+            <nav aria-label="Quick Links" className="min-w-[150px]">
+              <h3 className="font-bold text-lg text-gray-900 mb-4 tracking-wide">
+                Quick Links
               </h3>
-              <ul className="text-base space-y-2">
-                {section.links.map((link, i) => (
+              <ul className="text-base space-y-3">
+                {linkSections[0].links.map((link, i) => (
                   <li key={i}>
-                    <a href="#" className="hover:underline transition">
+                    <a
+                      href="#"
+                      className="hover:underline hover:text-pink-600 transition font-medium"
+                    >
                       {link}
                     </a>
                   </li>
                 ))}
               </ul>
-            </div>
-          ))}
-          {/* Socials */}
+            </nav>
+            {/* Categories */}
+            <nav aria-label="Categories" className="min-w-[100px]">
+              <h3 className="font-bold text-lg text-gray-900 mb-4 tracking-wide">
+                Categories
+              </h3>
+              <div className="flex flex-col gap-2">
+                {catRows.map((row, rowIdx) => (
+                  <div key={rowIdx} className="flex flex-wrap gap-2">
+                    {row.map((cat) => (
+                      <span
+                        key={cat}
+                        className="px-4 py-1 rounded-full bg-pink-500 text-white font-semibold text-sm shadow hover:from-pink-200 hover:to-purple-200 hover:text-pink-900 transition cursor-pointer border border-pink-200"
+                      >
+                        {cat}
+                      </span>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </nav>
+            {/* Socials */}
+          </div>
+        </div>
+        {/* Copyright */}
+        <div className="mt-10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <p className="py-8 text-center text-base md:text-lg text-gray-600 font-semibold tracking-wide">
+            © 2025 Status. All Rights Reserved.
+          </p>
           <div>
             <h3 className="font-bold text-lg text-gray-900 mb-4">Follow Us</h3>
-            <div className="flex space-x-5 text-2xl">
+            <div className="flex space-x-4">
               <a
                 href="#"
                 aria-label="Instagram"
-                className="hover:text-pink-600 transition"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow hover:bg-pink-100 hover:text-pink-600 transition text-xl"
               >
                 <FaInstagram />
               </a>
               <a
                 href="#"
                 aria-label="Twitter"
-                className="hover:text-blue-400 transition"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow hover:bg-blue-100 hover:text-blue-400 transition text-xl"
               >
                 <FaTwitter />
               </a>
               <a
                 href="#"
                 aria-label="Facebook"
-                className="hover:text-blue-700 transition"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow hover:bg-blue-100 hover:text-blue-700 transition text-xl"
               >
                 <FaFacebook />
               </a>
               <a
                 href="#"
                 aria-label="YouTube"
-                className="hover:text-red-600 transition"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow hover:bg-red-100 hover:text-red-600 transition text-xl"
               >
                 <FaYoutube />
               </a>
@@ -107,9 +140,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <p className="py-6 text-center text-base md:text-lg text-gray-600 font-semibold tracking-wide">
-        © 2025 Status. All Rights Reserved.
-      </p>
     </footer>
   );
 };

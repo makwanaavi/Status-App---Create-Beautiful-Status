@@ -11,7 +11,7 @@ const CategoryFilter = () => {
   };
 
   return (
-    <div className="w-full bg-white border-b border-pink-500 sticky top-16 z-40 mx-auto px-12">
+    <div className="w-full bg-white sticky top-16 z-40 mx-auto px-12">
       <div className="w-full mx-auto px-2 sm:px-4 py-2 sm:py-4">
         <div className="flex space-x-2 overflow-x-auto scrollbar-hide pb-2">
           {categories.map((category, index) => (
