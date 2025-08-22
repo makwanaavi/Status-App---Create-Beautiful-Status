@@ -22,7 +22,7 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50  w-full shadow-sm">
+    <header className="sticky top-0 z-50  w-full shadow-sm ">
       <div className="w-full mx-auto px-2 sm:px-6 lg:px-12">
         <div className="flex flex-col sm:flex-row items-center justify-between h-auto sm:h-16 py-2 sm:py-0 gap-3 sm:gap-0">
           {/* Logo */}

@@ -369,4 +369,11 @@ export const mockStatuses = [
     isLiked: false,
     isSaved: false,
   },
+    {
+    id: "49",
+    text: "The science of today is the technology of tomorrow.",
+    category: "Technology",
+    isLiked: false,
+    isSaved: false,
+  },
 ];

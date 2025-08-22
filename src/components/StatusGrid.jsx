@@ -1,44 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-  import StatusCard from "./StatusCard";
+import StatusCard from "./StatusCard";
 
 const StatusGrid = () => {
   const { filteredStatuses, loading } = useSelector((state) => state.status);
-  const gridRef = useRef(null);
   const [page, setPage] = useState(1);
-  const cardsPerPage = 20;
+  const cardsPerPage = 24;
   const totalPages = Math.ceil(filteredStatuses.length / cardsPerPage);
 
-  useEffect(() => {
-    if (gridRef.current) {
-      const grid = gridRef.current;
-      const resizeGridItem = (item) => {
-        const gridRowHeight = parseInt(
-          window.getComputedStyle(grid).getPropertyValue("grid-auto-rows")
-        );
-        const gridRowGap = parseInt(
-          window.getComputedStyle(grid).getPropertyValue("grid-row-gap")
-        );
-        const rowSpan = Math.ceil(
-          (item.querySelector(".status-card")?.scrollHeight || 0 + gridRowGap) /
-            (gridRowHeight + gridRowGap)
-        );
-        item.style.gridRowEnd = `span ${rowSpan}`;
-      };
-
-      const resizeAllGridItems = () => {
-        const allItems = grid.querySelectorAll(".grid-item");
-        allItems.forEach((item) => resizeGridItem(item));
-      };
-
-      // Initial resize
-      setTimeout(resizeAllGridItems, 100);
-
-      // Resize on window resize
-      window.addEventListener("resize", resizeAllGridItems);
-      return () => window.removeEventListener("resize", resizeAllGridItems);
-    }
-  }, [filteredStatuses, page, totalPages]);
+  // Calculate cards for current page and empty slots
+  const pageStatuses = filteredStatuses.slice((page - 1) * cardsPerPage, page * cardsPerPage);
+  const emptySlots = cardsPerPage - pageStatuses.length;
 
   if (loading) {
     return (
@@ -50,7 +22,7 @@ const StatusGrid = () => {
 
   return (
     <section
-      className="py-8 px-2 sm:py-12 sm:px-4 max-w-full  mx-auto relative"
+      className="py-8 px-2 sm:py-12 sm:px-4 max-w-full mx-auto relative"
       style={{
         overflow: "hidden",
       }}
@@ -58,24 +30,28 @@ const StatusGrid = () => {
       {/* Animated background */}
       <div className="absolute inset-0 z-0 pointer-events-none" />
       <div
-        ref={gridRef}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className="grid gap-8 sm:gap-10 auto-rows-[10px] relative z-10"
+        className="flex flex-wrap gap-8 sm:gap-10 relative z-10"
         style={{
-          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+          justifyContent: "flex-start",
         }}
       >
-        {filteredStatuses
-          .slice((page - 1) * cardsPerPage, page * cardsPerPage)
-          .map((status, index) => (
-            <div key={status.id} className="grid-item flex justify-center">
-              <div className="status-card w-full">
-                <StatusCard status={status} index={index} />
-              </div>
+        {pageStatuses.map((status, index) => (
+          <div key={status.id} className="flex justify-center items-stretch" style={{ flex: "1 0 260px", maxWidth: 340 }}>
+            <div className="w-full h-full flex">
+              <StatusCard status={status} index={index} />
             </div>
-          ))}
+          </div>
+        ))}
+        {/* Empty slots to fill up to 24 cards per page */}
+        {Array.from({ length: emptySlots }).map((_, idx) => (
+          <div
+            key={`empty-${idx}`}
+            className="flex justify-center items-stretch opacity-0"
+            style={{ flex: "1 0 260px", maxWidth: 340, minHeight: 320 }}
+          >
+            {/* Empty placeholder */}
+          </div>
+        ))}
       </div>
 
       {/* Pagination Controls */}
