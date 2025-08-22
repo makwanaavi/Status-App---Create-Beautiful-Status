@@ -15,12 +15,12 @@ import Contact from "./Contact";
 import LikedStatuses from "./pages/LikedStatuses";
 import BookmarkedStatuses from "./pages/BookmarkedStatuses";
 
-const HomePage = () => {
+const App = () => {
   useEffect(() => {
     store.dispatch(setStatuses(mockStatuses));
   }, []);
 
-  return (
+  const HomePage = () => (
     <div className="min-h-screen bg-gray-50">
       <Header />
       <CategoryFilter />
@@ -29,9 +29,7 @@ const HomePage = () => {
       <StatusEditor />
     </div>
   );
-};
 
-const App = () => {
   return (
     <Provider store={store}>
       <Router>
