@@ -181,12 +181,12 @@ const StatusCard = ({ status, index }) => {
 
   return (
     <div
-      className="group cursor-pointer m-2 h-full w-full"
+      className="group cursor-pointer m-2 h-full w-full min-h-[320px] min-w-[260px] flex"
       onClick={handleView}
       {...cardMotion}
       style={{ zIndex: 0 }}
     >
-      <div>
+      <div className="flex-1 flex flex-col">
         <div
           className="relative w-full h-[320px] sm:h-[340px] md:h-[260px] lg:h-[380px] xl:h-[400px] max-w-[95vw] sm:max-w-[260px] md:max-w-[280px] !xl:max-w-[400px] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/10"
           style={{

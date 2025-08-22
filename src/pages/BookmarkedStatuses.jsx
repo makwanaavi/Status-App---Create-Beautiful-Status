@@ -12,13 +12,13 @@ const BookmarkedStatuses = () => {
     <>
       <Header />
       <CategoryFilter />
-      <section className="py-8 px-4 max-w-7xl mx-auto">
+      <section className="py-8 px-4 mx-12">
         <h2 className="text-2xl font-bold mb-6 text-yellow-500">Bookmarked Statuses</h2>
         {bookmarked.length === 0 ? (
           <div className="text-center text-gray-500 py-16">No bookmarked statuses yet.</div>
         ) : (
           <div
-            className="grid gap-6 sm:gap-8"
+            className="flex flex-wrap gap-8 sm:gap-10"
             style={{
               gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
             }}
