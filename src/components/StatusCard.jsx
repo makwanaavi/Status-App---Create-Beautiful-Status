@@ -124,26 +124,26 @@ const StatusCard = ({ status, index }) => {
   };
 
   const colors = [
-    "#8B0000", // Dark Red
-    "#FF4500", // Orange Red
-    "#FFD700", // Golden Yellow 
-    "#006400", // Dark Green
-    "#228B22", // Forest Green
-    "#1E90FF", // Dodger Blue
-    "#00008B", // Dark Blue
-    "#4B0082", // Indigo
-    "#800080", // Purple
-    "#FF1493", // Deep Pink
-    "#A52A2A", // Brown
-    "#2F4F4F", // Dark Slate Gray
-    "#20B2AA", // Light Sea Green
-    "#FF6347", // Tomato
-    "#4682B4", // Steel Blue
-    "#DAA520", // Goldenrod
-    "#C71585", // Medium Violet Red
-    "#7B68EE", // Medium Slate Blue
-    "#3CB371", // Medium Sea Green
-    "#B22222", // Firebrick
+    "#F8BBD0", // Light Pink
+  "#E1BEE7", // Lavender
+  "#BBDEFB", // Light Blue
+  "#B2EBF2", // Aqua Blue
+  "#C8E6C9", // Light Green
+  "#DCEDC8", // Pale Green
+  "#FFF9C4", // Light Yellow
+  "#FFECB3", // Light Amber
+  "#FFE0B2", // Light Orange
+  "#FFCCBC", // Peach
+  "#D7CCC8", // Beige
+  "#F5F5F5", // Light Grey
+  "#E0F7FA", // Cyan Tint
+  "#F1F8E9", // Mint Green
+  "#F9FBE7", // Lemon Tint
+  "#FFF3E0", // Cream Orange
+  "#F3E5F5", // Light Purple
+  "#EDE7F6", // Soft Violet
+  "#E8EAF6", // Pale Indigo
+  "#ECEFF1"  // Cool Grey
   ];
 
   // Pick a random background color for each card instance
@@ -152,16 +152,6 @@ const StatusCard = ({ status, index }) => {
   );
   const textColor = isColorDark(bgColor) ? "#fff" : "#222";
 
-  // Animated gradient border style
-  const borderStyle = {
-    background: "linear-gradient(120deg, #ff6a00, #ee0979, #00c6ff, #43e97b, #38f9d7, #ff6a00)",
-    backgroundSize: "200% 200%",
-    animation: "gradient-border 4s ease infinite",
-    borderRadius: "1.5rem",
-    padding: "2px",
-    position: "relative",
-    zIndex: 1,
-  };
 
   // Glassmorphism overlay style
   const glassStyle = {
@@ -188,13 +178,13 @@ const StatusCard = ({ status, index }) => {
   const avatarColor = isColorDark(bgColor) ? "#222" : "#fff";
 
   return (
-    <motion.div
+    <div
       className="group cursor-pointer m-2 h-full w-full"
       onClick={handleView}
       {...cardMotion}
       style={{ zIndex: 0 }}
     >
-      <div style={borderStyle}>
+      <div>
         <div
           className="relative w-full h-[320px] sm:h-[340px] md:h-[260px] lg:h-[380px] xl:h-[400px] max-w-[95vw] sm:max-w-[260px] md:max-w-[280px] !xl:max-w-[400px] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/10 bg-clip-padding"
           style={{
@@ -325,7 +315,7 @@ const StatusCard = ({ status, index }) => {
         }
         `}
       </style>
-    </motion.div>
+    </div>
   );
 };
 
