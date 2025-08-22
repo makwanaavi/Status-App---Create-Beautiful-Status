@@ -269,10 +269,10 @@ const StatusEditor = () => {
                           setAlignment(align)
                         )
                       }
-                      className={`flex-1 py-2 px-4 rounded-lg border transition-colors ${
+                      className={`flex-1 py-2 px-4 rounded-lg transition-colors ${
                         alignment === align
-                          ? "bg-purple-100 border-purple-500 text-purple-700"
-                          : "border-gray-300 text-gray-700 hover:bg-gray-50"
+                          ? "bg-purple-100 text-purple-700"
+                          : " text-gray-700 hover:bg-gray-50"
                       }`}
                     >
                       {align.charAt(0).toUpperCase() + align.slice(1)}
@@ -294,8 +294,8 @@ const StatusEditor = () => {
                       onClick={() => dispatch(setBackground(bg))}
                       className={`w-full h-12 rounded-lg border-2 transition-all ${
                         background === bg
-                          ? "border-purple-500 scale-105"
-                          : "border-gray-200"
+                          ? ""
+                          : ""
                       }`}
                       style={{ background: bg }}
                     />

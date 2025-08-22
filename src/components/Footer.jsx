@@ -88,7 +88,7 @@ const Footer = () => {
                     {row.map((cat) => (
                       <span
                         key={cat}
-                        className="px-4 py-1 rounded-full bg-pink-500 text-white font-semibold text-sm shadow hover:from-pink-200 hover:to-purple-200 transition cursor-pointer border border-pink-200"
+                        className="px-4 py-1 rounded-full bg-pink-500 text-white font-semibold text-sm shadow hover:from-pink-200 hover:to-purple-200  transition cursor-pointer border border-pink-200"
                       >
                         {cat}
                       </span>

@@ -10,9 +10,7 @@ const Header = () => {
   const { searchQuery, statuses, categories } = useSelector((state) => ({
     searchQuery: state.status.searchQuery,
     statuses: state.status.statuses,
-    categories: [
-      ...new Set(state.status.statuses.map((s) => s.category)),
-    ],
+    categories: [...new Set(state.status.statuses.map((s) => s.category))],
   }));
 
   const likedCount = statuses.filter((s) => s.isLiked).length;
@@ -45,10 +43,15 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50  w-full shadow-sm bg-white">
-      <div className="w-full mx-auto px-2 sm:px-6 lg:px-12">
+    <header className="sticky top-0 z-50 w-full bg-white px-24">
+      {/* 
+        - 'sticky'
+        - 'top-0' (sticks to top of viewport)
+        - 'z-50' (above CategoryFilter's z-40)
+        - 'px-24' (matches CategoryFilter for alignment)
+      */}
+      <div className="w-full mx-auto">
         <div className="flex flex-col sm:flex-row items-center justify-between h-auto sm:h-16 py-2 sm:py-0 gap-3 sm:gap-0">
-          {/* Logo */}
           <div className="flex items-center mb-2 sm:mb-0">
             <div className="flex items-center space-x-3">
               <div className="w-12 h-12 bg-pink-600 rounded-lg flex items-center justify-center shadow-md">
@@ -62,7 +65,7 @@ const Header = () => {
 
           {/* User Menu */}
           <>
-            <div className="flex gap-4 sm:gap-6 text-pink-500 font-medium text-sm sm:text-base">
+            <div className="flex gap-6 sm:gap-6 text-pink-500 font-medium text-sm sm:text-base">
               <Link to={"/"} className="hover:text-pink-700 transition">
                 Home
               </Link>
@@ -89,7 +92,9 @@ const Header = () => {
                   onFocus={() => {
                     if (filteredCats.length > 0) setShowCatDropdown(true);
                   }}
-                  onBlur={() => setTimeout(() => setShowCatDropdown(false), 150)}
+                  onBlur={() =>
+                    setTimeout(() => setShowCatDropdown(false), 150)
+                  }
                   className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-gray-50 text-sm sm:text-base transition"
                 />
                 {/* Category Suggestions Dropdown */}
