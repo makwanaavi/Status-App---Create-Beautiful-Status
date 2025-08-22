@@ -43,8 +43,14 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50  w-full bg-white px-24">
-      <div className="w-full mx-auto py-4">
+    <header className="sticky top-0 z-50 w-full bg-white px-24">
+      {/* 
+        - 'sticky'
+        - 'top-0' (sticks to top of viewport)
+        - 'z-50' (above CategoryFilter's z-40)
+        - 'px-24' (matches CategoryFilter for alignment)
+      */}
+      <div className="w-full mx-auto">
         <div className="flex flex-col sm:flex-row items-center justify-between h-auto sm:h-16 py-2 sm:py-0 gap-3 sm:gap-0">
           <div className="flex items-center mb-2 sm:mb-0">
             <div className="flex items-center space-x-3">
