@@ -58,16 +58,17 @@ const StatusGrid = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="grid gap-4 sm:gap-6 auto-rows-[10px]"
+        className="grid gap-6 sm:gap-8 auto-rows-[10px]"
         style={{
-          gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+          gridTemplateColumns:
+            "repeat(auto-fit, minmax(260px, 1fr))",
         }}
       >
         {filteredStatuses
           .slice((page - 1) * cardsPerPage, page * cardsPerPage)
           .map((status, index) => (
-            <div key={status.id} className="grid-item">
-              <div className="status-card">
+            <div key={status.id} className="grid-item flex justify-center">
+              <div className="status-card w-full">
                 <StatusCard status={status} index={index} />
               </div>
             </div>
