@@ -1,24 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import StatusCard from "../components/StatusCard";
 import Header from "../components/Header";
 import CategoryFilter from "../components/CategoryFilter";
-// import Footer from "../components/Footer";
 import Footer from "../components/Footer";
 
 const LikedStatuses = () => {
-  const { statuses } = useSelector((state) => state.status);
-  const categories = [
-    "All",
-    ...Array.from(new Set(statuses.map((s) => s.category))),
-  ];
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const { statuses, activeCategory } = useSelector((state) => state.status);
 
   const liked = statuses.filter((s) => s.isLiked);
+
+  // Filter by activeCategory from Redux
   const filteredLiked =
-    selectedCategory === "All"
+    activeCategory === "All"
       ? liked
-      : liked.filter((s) => s.category === selectedCategory);
+      : liked.filter((s) => s.category === activeCategory);
 
   const cardsPerPage = 24;
   const pageLiked = filteredLiked.slice(0, cardsPerPage);
@@ -42,7 +38,7 @@ const LikedStatuses = () => {
             No liked statuses yet.
           </div>
         ) : (
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-wrap">
             {pageLiked.map((status, idx) => (
               <div
                 key={status.id}
@@ -51,7 +47,6 @@ const LikedStatuses = () => {
                 <StatusCard status={status} index={idx} />
               </div>
             ))}
-            {/* Empty slots to fill up to 24 cards */}
             {Array.from({ length: emptySlots }).map((_, idx) => (
               <div key={`empty-liked-${idx}`} className="opacity-0 h-full">
                 {/* Empty placeholder */}
@@ -66,3 +61,4 @@ const LikedStatuses = () => {
 };
 
 export default LikedStatuses;
+
