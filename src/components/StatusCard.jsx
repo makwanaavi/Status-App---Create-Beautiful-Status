@@ -268,7 +268,7 @@ const StatusCard = ({ status, index }) => {
                 fill={status.isLiked ? "currentColor" : "none"}
               />
             </button>
-            <motion.button
+            <button
               whileHover={{ scale: 1.15, rotate: -5 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleSave}
@@ -282,15 +282,15 @@ const StatusCard = ({ status, index }) => {
                 className="w-4 h-4"
                 fill={status.isSaved ? "currentColor" : "none"}
               />
-            </motion.button>
-            <motion.button
+            </button>
+            <button
               whileHover={{ scale: 1.15 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleShare}
               className="w-9 h-9 rounded-full text-white bg-blue-500 flex items-center justify-center backdrop-blur-md shadow-md transition-colors"
             >
               <Share2 className="w-4 h-4" />
-            </motion.button>
+            </button>
             <motion.button
               whileHover={{ scale: 1.15 }}
               whileTap={{ scale: 0.9 }}

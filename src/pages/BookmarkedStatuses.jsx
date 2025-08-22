@@ -19,19 +19,7 @@ const BookmarkedStatuses = () => {
     <>
       <Header />
       {/* Category Filter Dropdown */}
-      <div className="flex justify-end mx-12 mt-4">
-        <select
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          className="border border-gray-300 rounded px-3 py-2 text-sm"
-        >
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
-            </option>
-          ))}
-        </select>
-      </div>
+     
       <CategoryFilter />
       <section className="py-8 px-4 mx-12">
         <h2 className="text-2xl font-bold mb-6 text-pink-500">Bookmarked Statuses</h2>
