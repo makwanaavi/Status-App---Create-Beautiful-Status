@@ -23,10 +23,10 @@ const BookmarkedStatuses = () => {
   return (
     <>
       <Header />
+          <CategoryFilter />
       {/* Category Filter Dropdown */}
       <div className="bg-white py-4">
         <div className="container mx-auto px-4">
-          <CategoryFilter />
         </div>
       </div>
       <section className="py-8 px-4 max-w-7xl mx-auto min-h-screen">
