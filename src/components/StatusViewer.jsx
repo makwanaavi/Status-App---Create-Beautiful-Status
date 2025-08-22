@@ -186,8 +186,14 @@ const StatusViewer = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 min-h-screen z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center "
+        className="fixed inset-0 min-h-screen z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center"
         onClick={handleClose}
+        style={{
+          // Glassmorphism overlay
+          background: "rgba(30, 34, 90, 0.25)",
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+        }}
       >
         {/* Navigation Arrows */}
         {canGoPrevious && (
@@ -241,8 +247,28 @@ const StatusViewer = () => {
           style={{
             background: selectedStatus.background,
             fontFamily: selectedStatus.font,
+            border: "4px solid",
+            borderImage: "linear-gradient(120deg, #ff6a00, #ee0979, #00c6ff, #43e97b, #38f9d7, #ff6a00) 1",
+            boxShadow: "0 8px 32px 0 rgba(31,38,135,0.18), 0 0 24px 4px #ee097955",
+            position: "relative",
+            zIndex: 10,
           }}
         >
+          {/* Glassmorphism overlay */}
+          <div
+            style={{
+              background: "rgba(255,255,255,0.10)",
+              boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
+              borderRadius: "1.25rem",
+              border: "1px solid rgba(255,255,255,0.18)",
+              zIndex: 2,
+              position: "absolute",
+              inset: 0,
+              pointerEvents: "none",
+            }}
+          />
           <div className="relative h-full p-6 flex flex-col justify-between">
             {/* Main Text */}
             <div className="flex-1 flex items-center justify-center">

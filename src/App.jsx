@@ -14,6 +14,7 @@ import FAQ from "./FQA";
 import Contact from "./Contact";
 import LikedStatuses from "./pages/LikedStatuses";
 import BookmarkedStatuses from "./pages/BookmarkedStatuses";
+import Footer from "./components/Footer";
 
 const App = () => {
   useEffect(() => {
@@ -27,6 +28,7 @@ const App = () => {
       <StatusGrid />
       <StatusViewer />
       <StatusEditor />
+      <Footer />
     </div>
   );
 

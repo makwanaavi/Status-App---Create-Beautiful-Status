@@ -3,19 +3,8 @@
  * @property {string} id
  * @property {string} text
  * @property {string} category
- * @property {string} author
- * @property {string} authorAvatar
- * @property {string} background
- * @property {string} font
- * @property {string} color
- * @property {number} likes
- * @property {number} saves
  * @property {boolean} isLiked
  * @property {boolean} isSaved
- * @property {string} createdAt
- * @property {string[]} tags
- * @property {"quote"|"photo"} type
- * @property {string} [image]
  */
 
 // Mock status data
