@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Search, Plus, Heart, Bookmark, Menu } from "lucide-react";
+import { Search, Plus, Heart, Bookmark } from "lucide-react";
 import { motion } from "framer-motion";
 import { RootState } from "../store/store";
 import { setSearchQuery, setEditorOpen } from "../store/slices/editorSlice";
@@ -8,8 +8,11 @@ import { Link } from "react-router-dom";
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state: RootState) => state.user);
   const { searchQuery } = useSelector((state: RootState) => state.editor);
+  const { statuses } = useSelector((state: RootState) => state.status);
+
+  const likedCount = statuses.filter((s) => s.isLiked).length;
+  const bookmarkedCount = statuses.filter((s) => s.isSaved).length;
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchQuery(e.target.value));
@@ -76,42 +79,33 @@ const Header: React.FC = () => {
                 <span className="hidden sm:inline">Create</span>
               </button>
 
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                className="p-2 text-gray-600 hover:text-pink-600 transition-colors"
-              >
-                <Heart className="w-5 h-5" />
-              </motion.button>
-
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                className="p-2 text-gray-600 hover:text-pink-600 transition-colors"
-              >
-                <Bookmark className="w-5 h-5" />
-              </motion.button>
-
-              {currentUser && (
+              <Link to="/liked" className="relative">
                 <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="flex items-center space-x-2 cursor-pointer px-2 py-1 rounded-full hover:bg-gray-100 transition"
+                  whileHover={{ scale: 1.1 }}
+                  className="p-2 text-gray-600 hover:text-pink-600 transition-colors"
                 >
-                  <img
-                    src={currentUser.avatar}
-                    alt={currentUser.name}
-                    className="w-8 h-8 rounded-full object-cover"
-                  />
-                  <span className="hidden sm:inline text-sm font-medium text-gray-700">
-                    {currentUser.name}
-                  </span>
+                  <Heart className="w-5 h-5" />
+                  {likedCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5 min-w-[18px] text-center font-bold">
+                      {likedCount}
+                    </span>
+                  )}
                 </motion.div>
-              )}
+              </Link>
 
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                className="p-2 text-gray-600 hover:text-pink-600 transition-colors md:hidden"
-              >
-                <Menu className="w-5 h-5" />
-              </motion.button>
+              <Link to="/bookmarked" className="relative">
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  className="p-2 text-gray-600 hover:text-pink-600 transition-colors"
+                >
+                  <Bookmark className="w-5 h-5" />
+                  {bookmarkedCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-yellow-500 text-white text-xs rounded-full px-1.5 py-0.5 min-w-[18px] text-center font-bold">
+                      {bookmarkedCount}
+                    </span>
+                  )}
+                </motion.div>
+              </Link>
             </div>
           </>
         </div>

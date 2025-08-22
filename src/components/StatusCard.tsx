@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Heart, Bookmark, Share2 } from "lucide-react";
+import { Heart, Bookmark, Share2, Download } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { Status } from "../store/slices/statusSlice";
 import {
@@ -27,18 +27,86 @@ const StatusCard: React.FC<StatusCardProps> = ({ status }) => {
     dispatch(toggleSave(status.id));
   };
 
-  const handleShare = (e: React.MouseEvent) => {
+  const handleShare = async (e: React.MouseEvent) => {
     e.stopPropagation();
+    const shareUrl = `${window.location.origin}/status/${status.id}`;
+    const shareText = `${status.text}\n\n- ${status.author}\n${shareUrl}`;
     if (navigator.share) {
-      navigator.share({
-        title: "Beautiful Status",
-        text: status.text,
-        url: window.location.href,
-      });
+      try {
+        await navigator.share({
+          title: "Beautiful Status",
+          text: status.text,
+          url: shareUrl,
+        });
+      } catch (err) {
+        console.error("Error sharing:", err);
+        
+        // fallback to clipboard if user cancels or error occurs
+        await navigator.clipboard.writeText(shareText);
+        alert("Status link copied to clipboard!");
+      }
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(shareText);
+      alert("Status link copied to clipboard!");
     } else {
-      // Fallback for browsers that don't support Web Share API
-      navigator.clipboard.writeText(`${status.text}\n\n- ${status.author}`);
+      window.prompt("Copy this status link:", shareText);
     }
+  };
+
+  const handleDownload = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const canvas = document.createElement("canvas");
+    canvas.width = 800;
+    canvas.height = 600;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Create gradient background
+    let fillStyle;
+    if (status.background.includes("gradient")) {
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, "#667eea");
+      gradient.addColorStop(1, "#764ba2");
+      fillStyle = gradient;
+    } else {
+      fillStyle = status.background;
+    }
+    ctx.fillStyle = fillStyle;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Add text
+    ctx.fillStyle = status.color;
+    ctx.font = `32px ${status.font}`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    // Word wrap
+    const words = status.text.split(" ");
+    const lines = [];
+    let currentLine = "";
+    for (const word of words) {
+      const testLine = currentLine + (currentLine ? " " : "") + word;
+      const metrics = ctx.measureText(testLine);
+      if (metrics.width > canvas.width - 100) {
+        lines.push(currentLine);
+        currentLine = word;
+      } else {
+        currentLine = testLine;
+      }
+    }
+    lines.push(currentLine);
+
+    const lineHeight = 50;
+    const startY = canvas.height / 2 - (lines.length * lineHeight) / 2;
+    lines.forEach((line, index) => {
+      ctx.fillText(line, canvas.width / 2, startY + index * lineHeight);
+    });
+
+    // Download
+    const link = document.createElement("a");
+    link.download = `status-${status.id}.png`;
+    link.href = canvas.toDataURL();
+    link.click();
   };
 
   const handleView = () => {
@@ -131,6 +199,15 @@ const StatusCard: React.FC<StatusCardProps> = ({ status }) => {
             className="w-9 h-9 rounded-full bg-white/20 text-white hover:bg-blue-500 flex items-center justify-center backdrop-blur-md shadow-md transition-colors"
           >
             <Share2 className="w-4 h-4" />
+          </motion.button>
+
+          <motion.button
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={handleDownload}
+            className="w-9 h-9 rounded-full bg-white/20 text-white hover:bg-green-500 flex items-center justify-center backdrop-blur-md shadow-md transition-colors"
+          >
+            <Download className="w-4 h-4" />
           </motion.button>
         </div>
       </div>
