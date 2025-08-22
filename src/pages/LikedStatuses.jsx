@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import StatusCard from "../components/StatusCard";
 import Header from "../components/Header";
@@ -6,20 +6,33 @@ import CategoryFilter from "../components/CategoryFilter";
 
 const LikedStatuses = () => {
   const { statuses } = useSelector((state) => state.status);
+  const categories = [
+    "All",
+    ...Array.from(new Set(statuses.map((s) => s.category))),
+  ];
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
   const liked = statuses.filter((s) => s.isLiked);
+  const filteredLiked =
+    selectedCategory === "All"
+      ? liked
+      : liked.filter((s) => s.category === selectedCategory);
+
   const cardsPerPage = 24;
-  const pageLiked = liked.slice(0, cardsPerPage);
+  const pageLiked = filteredLiked.slice(0, cardsPerPage);
   const emptySlots = cardsPerPage - pageLiked.length;
 
   return (
     <>
       <Header />
+      {/* Category Filter Dropdown */}
+    
       <CategoryFilter />
       <section className="py-8 px-4 mx-12">
         <h2 className="text-2xl font-bold mb-6 text-pink-600">
           Liked Statuses
         </h2>
-        {liked.length === 0 ? (
+        {filteredLiked.length === 0 ? (
           <div className="text-center text-gray-500 py-16">
             No liked statuses yet.
           </div>

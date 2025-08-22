@@ -7,14 +7,37 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const { searchQuery } = useSelector((state) => state.status);
-  const { statuses } = useSelector((state) => state.status);
+  const { searchQuery, statuses, categories } = useSelector((state) => ({
+    searchQuery: state.status.searchQuery,
+    statuses: state.status.statuses,
+    categories: [
+      ...new Set(state.status.statuses.map((s) => s.category)),
+    ],
+  }));
 
   const likedCount = statuses.filter((s) => s.isLiked).length;
   const bookmarkedCount = statuses.filter((s) => s.isSaved).length;
 
+  const [showCatDropdown, setShowCatDropdown] = React.useState(false);
+  const [filteredCats, setFilteredCats] = React.useState([]);
+
   const handleSearch = (e) => {
-    dispatch(setSearchQuery(e.target.value));
+    const value = e.target.value;
+    dispatch(setSearchQuery(value));
+    if (value.length > 0) {
+      const cats = categories.filter((cat) =>
+        cat.toLowerCase().includes(value.toLowerCase())
+      );
+      setFilteredCats(cats);
+      setShowCatDropdown(cats.length > 0);
+    } else {
+      setShowCatDropdown(false);
+    }
+  };
+
+  const handleCategorySelect = (cat) => {
+    dispatch(setSearchQuery(cat));
+    setShowCatDropdown(false);
   };
 
   const openEditor = () => {
@@ -22,7 +45,7 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50  w-full shadow-sm ">
+    <header className="sticky top-0 z-50  w-full shadow-sm bg-white">
       <div className="w-full mx-auto px-2 sm:px-6 lg:px-12">
         <div className="flex flex-col sm:flex-row items-center justify-between h-auto sm:h-16 py-2 sm:py-0 gap-3 sm:gap-0">
           {/* Logo */}
@@ -63,8 +86,26 @@ const Header = () => {
                   placeholder="Search statuses, categories..."
                   value={searchQuery}
                   onChange={handleSearch}
+                  onFocus={() => {
+                    if (filteredCats.length > 0) setShowCatDropdown(true);
+                  }}
+                  onBlur={() => setTimeout(() => setShowCatDropdown(false), 150)}
                   className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-gray-50 text-sm sm:text-base transition"
                 />
+                {/* Category Suggestions Dropdown */}
+                {showCatDropdown && (
+                  <div className="absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-48 overflow-auto">
+                    {filteredCats.map((cat) => (
+                      <div
+                        key={cat}
+                        onMouseDown={() => handleCategorySelect(cat)}
+                        className="px-4 py-2 hover:bg-pink-100 cursor-pointer text-gray-700"
+                      >
+                        {cat}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
