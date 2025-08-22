@@ -17,12 +17,13 @@ import BookmarkedStatuses from "./pages/BookmarkedStatuses";
 
 const HomePage = () => {
   useEffect(() => {
-    // Load mock data
     store.dispatch(setStatuses(mockStatuses));
   }, []);
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Header />
+      <CategoryFilter />
       <StatusGrid />
       <StatusViewer />
       <StatusEditor />
@@ -34,8 +35,6 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <Header />
-        <CategoryFilter />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<About />} />

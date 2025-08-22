@@ -108,11 +108,6 @@ const StatusCard = ({ status, index }) => {
     dispatch(setSelectedStatus(status));
   };
 
-  const colorsHandeler = () => {
-    const colors = ["#33FF57", "#3357FF", "#33FFF5", "#F5FF33"];
-    return colors[Math.floor(Math.random() * colors.length)];
-  };
-
   return (
     <div
       className="group cursor-pointer m-2" // Add margin for spacing
@@ -121,7 +116,7 @@ const StatusCard = ({ status, index }) => {
       <div
         className="relative w-full h-[320px] sm:h-[340px] md:h-[260px] lg:h-[380px] xl:h-[400px] max-w-[95vw] sm:max-w-[260px] md:max-w-[280px] !xl:max-w-[400px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/10 bg-clip-padding"
         style={{
-          background: colorsHandeler(),
+          background: status.background,
           fontFamily: status.font,
         }}
       >
@@ -216,3 +211,4 @@ const StatusCard = ({ status, index }) => {
 };
 
 export default StatusCard;
+

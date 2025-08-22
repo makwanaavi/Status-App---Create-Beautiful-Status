@@ -1,54 +1,60 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/logo.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#6366F1" />
-    <meta name="description" content="Create and share beautiful visual statuses with AI-powered editor. Discover thousands of inspiring quotes across 25+ categories." />
-    <meta name="keywords" content="status, quotes, social media, instagram, whatsapp, facebook, editor, ai" />
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://status-app.com/" />
-    <meta property="og:title" content="Status App - Create Beautiful Status" />
-    <meta property="og:description" content="Create and share beautiful visual statuses with AI-powered editor" />
-    <meta property="og:image" content="https://status-app.com/og-image.jpg" />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://status-app.com/" />
-    <meta property="twitter:title" content="Status App - Create Beautiful Status" />
-    <meta property="twitter:description" content="Create and share beautiful visual statuses with AI-powered editor" />
-    <meta property="twitter:image" content="https://status-app.com/og-image.jpg" />
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#6366F1" />
+  <meta name="description"
+    content="Create and share beautiful visual statuses with AI-powered editor. Discover thousands of inspiring quotes across 25+ categories." />
+  <meta name="keywords" content="status, quotes, social media, instagram, whatsapp, facebook, editor, ai" />
 
-    <link rel="manifest" href="/manifest.json" />
-    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
-    
-    <title>Status App - Create Beautiful Status</title>
-    
-    <script>
-      // Register service worker for PWA
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then((registration) => {
-              console.log('SW registered: ', registration);
-            })
-            .catch((registrationError) => {
-              console.log('SW registration failed: ', registrationError);
-            });
-        });
-      }
-    </script>
-  </head>
-  <body>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://status-app.com/" />
+  <meta property="og:title" content="Status App - Create Beautiful Status" />
+  <meta property="og:description" content="Create and share beautiful visual statuses with AI-powered editor" />
+  <meta property="og:image" content="https://status-app.com/og-image.jpg" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://status-app.com/" />
+  <meta property="twitter:title" content="Status App - Create Beautiful Status" />
+  <meta property="twitter:description" content="Create and share beautiful visual statuses with AI-powered editor" />
+  <meta property="twitter:image" content="https://status-app.com/og-image.jpg" />
+
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Pacifico&display=swap"
+    rel="stylesheet">
+
+  <title>Status App - Create Beautiful Status</title>
+
+  <script>
+    // Register service worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((registration) => {
+            console.log('SW registered: ', registration);
+          })
+          .catch((registrationError) => {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+  </script>
+</head>
+
+<body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
+
 </html>

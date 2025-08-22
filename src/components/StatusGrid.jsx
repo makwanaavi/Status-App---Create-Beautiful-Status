@@ -115,4 +115,3 @@ const StatusGrid = () => {
 };
 
 export default StatusGrid;
-export default StatusGrid;
