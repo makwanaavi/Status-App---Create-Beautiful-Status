@@ -23,13 +23,10 @@ const BookmarkedStatuses = () => {
   return (
     <>
       <Header />
-          <CategoryFilter />
+      <CategoryFilter />
       {/* Category Filter Dropdown */}
-      <div className="bg-white py-4">
-        <div className="container mx-auto px-4">
-        </div>
-      </div>
-      <section className="py-8 px-4 max-w-7xl mx-auto min-h-screen">
+      
+      <section className="py-8 px-4 mx-auto min-h-screen px-24">
         <h2 className="text-2xl font-bold mb-6 text-pink-600">
           Bookmarked Statuses
         </h2>
@@ -40,15 +37,15 @@ const BookmarkedStatuses = () => {
         ) : (
           <div className="flex gap-4 flex-wrap">
             {pageBookmarked.map((status, idx) => (
-              <div key={status.id} className="flex justify-center items-stretch h-full">
+              <div
+                key={status.id}
+                className="flex justify-center items-stretch h-full"
+              >
                 <StatusCard status={status} index={idx} />
               </div>
             ))}
             {Array.from({ length: emptySlots }).map((_, idx) => (
-              <div
-                key={`empty-bookmarked-${idx}`} 
-                className="opacity-0 h-full"
-              >
+              <div key={`empty-bookmarked-${idx}`} className="opacity-0 h-full">
                 {/* Empty placeholder */}
               </div>
             ))}
@@ -61,5 +58,3 @@ const BookmarkedStatuses = () => {
 };
 
 export default BookmarkedStatuses;
- 
-

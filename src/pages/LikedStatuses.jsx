@@ -25,7 +25,7 @@ const LikedStatuses = () => {
       <Header />
           <CategoryFilter />
      
-      <section className="py-8 px-4 max-w-7xl mx-auto min-h-screen">
+      <section className="py-8 min-h-screen px-24">
         <h2 className="text-2xl font-bold mb-6 text-pink-600">
           Liked Statuses
         </h2>
