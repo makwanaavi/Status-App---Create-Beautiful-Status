@@ -59,7 +59,7 @@ const StatusGrid = () => {
         <div className="flex flex-col items-center mt-8 space-y-4">
           <div className="flex justify-center items-center space-x-12">
             <button
-              className="px-4 py-2 rounded bg-gray-200 text-pink-500 font-medium disabled:opacity-50 mt-12"
+              className="px-4 py-2 rounded text-white bg-pink-500 font-medium disabled:opacity-50 mt-12"
               onClick={() => setPage((p) => Math.max(1, p - 1))}
             >
               Prev
@@ -69,7 +69,7 @@ const StatusGrid = () => {
             </span>
 
             <button
-              className="px-4 py-2 rounded bg-gray-200 text-pink-500 font-medium disabled:opacity-50 mt-12"
+              className="px-4 py-2 rounded text-white bg-pink-500 font-medium disabled:opacity-50 mt-12"
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             >
               Next
