@@ -145,7 +145,7 @@ const StatusEditor = () => {
         <div className="h-full flex flex-col md:flex-row">
           {/* Canvas Area */}
           <div className="flex-1 flex items-center justify-center p-2 sm:p-4 md:p-8">
-            <motion.div
+            <div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               className="relative w-full max-w-xs sm:max-w-lg md:max-w-2xl aspect-square rounded-2xl overflow-hidden shadow-2xl"
@@ -167,7 +167,7 @@ const StatusEditor = () => {
                 />
               </div>
               <canvas ref={canvasRef} className="hidden" />
-            </motion.div>
+            </div>
           </div>
 
           {/* Editor Panel */}
