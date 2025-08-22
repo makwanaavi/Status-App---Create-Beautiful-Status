@@ -195,8 +195,6 @@ const StatusCard = ({ status, index }) => {
             zIndex: 2,
           }}
         >
-          {/* Glassmorphism Overlay */}
-          <div style={glassStyle} />
 
           {/* Floating Avatar */}
           <div
@@ -210,7 +208,7 @@ const StatusCard = ({ status, index }) => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              border: "3px solid #fff",
+              border: "3px solid #ec4899",
               boxShadow: "0 2px 8px rgba(0,0,0,0.10)",
               fontWeight: 700,
               fontSize: 22,
@@ -302,6 +300,7 @@ const StatusCard = ({ status, index }) => {
           </div>
         </div>
       </div>
+      
       {/* Animated border keyframes */}
       <style>
         {`
