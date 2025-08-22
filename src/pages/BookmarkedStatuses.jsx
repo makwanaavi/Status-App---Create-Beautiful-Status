@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import StatusCard from "../components/StatusCard";
 import Header from "../components/Header";
@@ -6,18 +6,15 @@ import CategoryFilter from "../components/CategoryFilter";
 import Footer from "../components/Footer";
 
 const BookmarkedStatuses = () => {
-  const { statuses } = useSelector((state) => state.status);
-  const categories = [
-    "All",
-    ...Array.from(new Set(statuses.map((s) => s.category))),
-  ];
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const { statuses, activeCategory } = useSelector((state) => state.status);
 
   const bookmarked = statuses.filter((s) => s.isSaved);
+
+  // Filter by activeCategory from Redux
   const filteredBookmarked =
-    selectedCategory === "All"
+    activeCategory === "All"
       ? bookmarked
-      : bookmarked.filter((s) => s.category === selectedCategory);
+      : bookmarked.filter((s) => s.category === activeCategory);
 
   const cardsPerPage = 24;
   const pageBookmarked = filteredBookmarked.slice(0, cardsPerPage);
@@ -41,13 +38,12 @@ const BookmarkedStatuses = () => {
             No bookmarked statuses yet.
           </div>
         ) : (
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-wrap">
             {pageBookmarked.map((status, idx) => (
               <div key={status.id} className="flex justify-center items-stretch h-full">
                 <StatusCard status={status} index={idx} />
               </div>
             ))}
-            {/* Empty slots to fill up to 24 cards */}
             {Array.from({ length: emptySlots }).map((_, idx) => (
               <div
                 key={`empty-bookmarked-${idx}`}
@@ -65,4 +61,5 @@ const BookmarkedStatuses = () => {
 };
 
 export default BookmarkedStatuses;
+ 
 
