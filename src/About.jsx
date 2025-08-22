@@ -67,7 +67,7 @@ const About = () => {
                   <div className="w-20 h-20 mx-auto rounded-full bg-pink-200 mb-2 flex items-center justify-center text-2xl font-bold text-pink-700">
                     A
                   </div>
-                  <div className="font-semibold">Alex Sharma</div>
+                  <div className="font-semibold">Avi Makwana</div>
                   <div className="text-sm text-gray-600">
                     Founder & Product Lead
                   </div>
@@ -83,7 +83,7 @@ const About = () => {
                   <div className="w-20 h-20 mx-auto rounded-full bg-pink-200 mb-2 flex items-center justify-center text-2xl font-bold text-pink-700">
                     S
                   </div>
-                  <div className="font-semibold">Samir Khan</div>
+                  <div className="font-semibold">AD Makwana</div>
                   <div className="text-sm text-gray-600">Lead Developer</div>
                 </div>
               </div>
