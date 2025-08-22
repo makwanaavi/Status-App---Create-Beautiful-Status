@@ -181,7 +181,7 @@ const StatusCard = ({ status, index }) => {
 
   return (
     <div
-      className="group cursor-pointer m-2 h-full w-full min-h-[320px] min-w-[260px] flex"
+      className="group cursor-pointer m-2 h-full w-full min-h-[320px] min-w-[260px] flex flex-col items-center relative"
       onClick={handleView}
       {...cardMotion}
       style={{ zIndex: 0 }}
@@ -195,7 +195,6 @@ const StatusCard = ({ status, index }) => {
             zIndex: 2,
           }}
         >
-
           {/* Floating Avatar */}
           <div
             className="absolute -top-6 left-1/2 -translate-x-1/2 z-10 shadow-lg"
@@ -249,65 +248,65 @@ const StatusCard = ({ status, index }) => {
             </div>
           </div>
 
-          {/* Hover Actions */}
-          <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-all duration-500 z-20">
-            <button
-              whileHover={{ scale: 1.15, rotate: 5 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={handleLike}
-              className={`w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-md shadow-md transition-colors ${
-                status.isLiked
-                  ? "bg-red-500 text-white"
-                  : "bg-red-500 text-white"
-              }`}
-            >
-              <Heart
-                className="w-4 h-4"
-                fill={status.isLiked ? "currentColor" : "none"}
-              />
-            </button>
-            <button
-              whileHover={{ scale: 1.15, rotate: -5 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={handleSave}
-              className={`w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-md shadow-md transition-colors ${
-                status.isSaved
-                  ? "bg-yellow-500 text-white"
-                  : "bg-yellow-500 text-white"
-              }`}
-            >
-              <Bookmark
-                className="w-4 h-4"
-                fill={status.isSaved ? "currentColor" : "none"}
-              />
-            </button>
-            <button
-              whileHover={{ scale: 1.15 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={handleShare}
-              className="w-9 h-9 rounded-full text-white bg-blue-500 flex items-center justify-center backdrop-blur-md shadow-md transition-colors"
-            >
-              <Share2 className="w-4 h-4" />
-            </button>
-            <motion.button
-              whileHover={{ scale: 1.15 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={handleDownload}
-              className="w-9 h-9 rounded-full text-white  bg-green-500 flex items-center justify-center backdrop-blur-md shadow-md transition-colors"
-            >
-              <Download className="w-4 h-4" />
-            </motion.button>
+          {/* Unique Docked Hover Actions */}
+          <div className="absolute left-1/2 bottom-4 -translate-x-1/2 z-30 w-fit">
+            <div className="dock-actions opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-center gap-2 px-4 py-2 rounded-full glass-dock">
+              <button
+                title={status.isLiked ? "Unlike" : "Like"}
+                onClick={handleLike}
+                className={`w-9 h-9 rounded-full flex items-center justify-center shadow-md transition-transform hover:scale-110
+                  ${status.isLiked ? "bg-red-500 text-white" : "bg-white text-red-500"}`}
+              >
+                <Heart
+                  className="w-5 h-5"
+                  fill={status.isLiked ? "currentColor" : "none"}
+                />
+              </button>
+              <button
+                title={status.isSaved ? "Unsave" : "Save"}
+                onClick={handleSave}
+                className={`w-9 h-9 rounded-full flex items-center justify-center shadow-md transition-transform hover:scale-110
+                  ${status.isSaved ? "bg-yellow-500 text-white" : "bg-white text-yellow-500"}`}
+              >
+                <Bookmark
+                  className="w-5 h-5"
+                  fill={status.isSaved ? "currentColor" : "none"}
+                />
+              </button>
+              <button
+                title="Share"
+                onClick={handleShare}
+                className="w-9 h-9 rounded-full flex items-center justify-center shadow-md transition-transform hover:scale-110 bg-white text-blue-500"
+              >
+                <Share2 className="w-5 h-5" />
+              </button>
+              <button
+                title="Download"
+                onClick={handleDownload}
+                className="w-9 h-9 rounded-full flex items-center justify-center shadow-md transition-transform hover:scale-110 bg-green-500 text-white"
+              >
+                <Download className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      
-      {/* Animated border keyframes */}
+
+      {/* ...existing code... */}
       <style>
         {`
         @keyframes gradient-border {
           0% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
           100% { background-position: 0% 50%; }
+        }
+        .glass-dock {
+          background: rgba(255,255,255,0.18);
+          box-shadow: 0 4px 24px 0 rgba(31, 38, 135, 0.10);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          border-radius: 9999px;
+          border: 1px solid rgba(255,255,255,0.18);
         }
         `}
       </style>
