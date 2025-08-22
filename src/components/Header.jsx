@@ -32,7 +32,7 @@ const Header = () => {
                 <span className="text-white font-bold text-3xl">S</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-bold bg-pink-600 bg-clip-text text-transparent select-none">
-                <Link to={"/"}>StatusApp</Link>
+                <Link to={"/"}>Status</Link>
               </h1>
             </div>
           </div>

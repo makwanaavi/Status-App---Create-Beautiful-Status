@@ -16,7 +16,7 @@ const CategoryFilter = () => {
       <div className="w-full mx-auto px-2 sm:px-4 py-2 sm:py-4">
         <div className="flex space-x-2 overflow-x-auto scrollbar-hide pb-2">
           {categories.map((category, index) => (
-            <motion.button
+            <button
               key={category}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -31,7 +31,7 @@ const CategoryFilter = () => {
               }`}
             >
               {category}
-            </motion.button>
+            </button>
           ))}
         </div>
       </div>
