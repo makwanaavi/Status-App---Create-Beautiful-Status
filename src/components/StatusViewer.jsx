@@ -302,11 +302,10 @@ const StatusViewer = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleLike}
-              className={`w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-md shadow-md transition-colors ${
-                selectedStatus.isLiked
+              className={`w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-md shadow-md transition-colors ${selectedStatus.isLiked
                   ? "bg-red-500 text-white"
                   : "bg-white/20 text-white hover:bg-red-500"
-              }`}
+                }`}
             >
               <Heart
                 className="w-4 h-4"
@@ -317,11 +316,10 @@ const StatusViewer = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleSave}
-              className={`w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-md shadow-md transition-colors ${
-                selectedStatus.isSaved
+              className={`w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-md shadow-md transition-colors ${selectedStatus.isSaved
                   ? "bg-yellow-500 text-white"
                   : "bg-white/20 text-white hover:bg-yellow-500"
-              }`}
+                }`}
             >
               <Bookmark
                 className="w-4 h-4"
