@@ -51,7 +51,7 @@ const StatusEditor = () => {
       isSaved: true,
       createdAt: new Date().toISOString().split("T")[0],
       tags: ["custom", "personal"],
-      type: "quote" as const,
+      type: "quote",
     };
 
     dispatch(addStatus(newStatus));
@@ -91,7 +91,7 @@ const StatusEditor = () => {
     // Add text
     ctx.fillStyle = color;
     ctx.font = `${fontSize * 2}px ${font}`;
-    ctx.textAlign = alignment as CanvasTextAlign;
+    ctx.textAlign = alignment ;
     ctx.textBaseline = "middle";
 
     const x =
@@ -266,7 +266,7 @@ const StatusEditor = () => {
                       key={align}
                       onClick={() =>
                         dispatch(
-                          setAlignment(align as "left" | "center" | "right")
+                          setAlignment(align)
                         )
                       }
                       className={`flex-1 py-2 px-4 rounded-lg border transition-colors ${

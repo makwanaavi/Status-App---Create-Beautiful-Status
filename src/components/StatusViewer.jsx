@@ -351,4 +351,3 @@ const StatusViewer = () => {
 };
 
 export default StatusViewer;
-export default StatusViewer;

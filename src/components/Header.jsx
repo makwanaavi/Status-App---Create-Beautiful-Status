@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const { searchQuery } = useSelector((state) => state.editor);
+  const { searchQuery } = useSelector((state) => state.status);
   const { statuses } = useSelector((state) => state.status);
 
   const likedCount = statuses.filter((s) => s.isLiked).length;
@@ -113,5 +113,4 @@ const Header = () => {
   );
 };
 
-export default Header;
 export default Header;
