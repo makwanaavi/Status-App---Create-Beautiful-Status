@@ -186,7 +186,7 @@ const StatusViewer = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 min-h-screen z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center"
+        className="fixed inset-0 min-h-screen z-50 bg-black/10 backdrop-blur-sm flex items-center justify-center"
         onClick={handleClose}
         style={{
           // Glassmorphism overlay
@@ -197,7 +197,7 @@ const StatusViewer = () => {
       >
         {/* Navigation Arrows */}
         {canGoPrevious && (
-          <motion.button
+          <button
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             whileHover={{ scale: 1.1 }}
@@ -205,14 +205,14 @@ const StatusViewer = () => {
               e.stopPropagation();
               handlePrevious();
             }}
-            className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-pink-500 hover:bg-white/20 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all z-10"
+            className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-pink-500 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all z-10"
           >
             <ArrowLeft className="w-6 h-6" />
-          </motion.button>
+          </button>
         )}
 
         {canGoNext && (
-          <motion.button
+          <button
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             whileHover={{ scale: 1.1 }}
@@ -220,14 +220,14 @@ const StatusViewer = () => {
               e.stopPropagation();
               handleNext();
             }}
-            className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-pink-500 hover:bg-white/20 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all z-10"
+            className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-pink-500 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all z-10"
           >
             <ArrowRight className="w-6 h-6" />
-          </motion.button>
+          </button>
         )}
 
         {/* Close Button */}
-        <motion.button
+        <button
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.1 }}
@@ -235,7 +235,7 @@ const StatusViewer = () => {
           className="absolute top-2 sm:top-4 right-2 sm:right-4 w-10 h-10 sm:w-12 sm:h-12 bg-pink-500 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all z-10"
         >
           <X className="w-6 h-6" />
-        </motion.button>
+        </button>
 
         {/* Status Display */}
         <motion.div
@@ -247,9 +247,6 @@ const StatusViewer = () => {
           style={{
             background: selectedStatus.background,
             fontFamily: selectedStatus.font,
-            border: "4px solid",
-            borderImage: "linear-gradient(120deg, #ff6a00, #ee0979, #00c6ff, #43e97b, #38f9d7, #ff6a00) 1",
-            boxShadow: "0 8px 32px 0 rgba(31,38,135,0.18), 0 0 24px 4px #ee097955",
             position: "relative",
             zIndex: 10,
           }}

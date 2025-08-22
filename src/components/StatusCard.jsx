@@ -125,25 +125,25 @@ const StatusCard = ({ status, index }) => {
 
   const colors = [
     "#F8BBD0", // Light Pink
-  "#E1BEE7", // Lavender
-  "#BBDEFB", // Light Blue
-  "#B2EBF2", // Aqua Blue
-  "#C8E6C9", // Light Green
-  "#DCEDC8", // Pale Green
-  "#FFF9C4", // Light Yellow
-  "#FFECB3", // Light Amber
-  "#FFE0B2", // Light Orange
-  "#FFCCBC", // Peach
-  "#D7CCC8", // Beige
-  "#F5F5F5", // Light Grey
-  "#E0F7FA", // Cyan Tint
-  "#F1F8E9", // Mint Green
-  "#F9FBE7", // Lemon Tint
-  "#FFF3E0", // Cream Orange
-  "#F3E5F5", // Light Purple
-  "#EDE7F6", // Soft Violet
-  "#E8EAF6", // Pale Indigo
-  "#ECEFF1"  // Cool Grey
+    "#E1BEE7", // Lavender
+    "#BBDEFB", // Light Blue
+    "#B2EBF2", // Aqua Blue
+    "#C8E6C9", // Light Green
+    "#DCEDC8", // Pale Green
+    "#FFF9C4", // Light Yellow
+    "#FFECB3", // Light Amber
+    "#FFE0B2", // Light Orange
+    "#FFCCBC", // Peach
+    "#D7CCC8", // Beige
+    "#F5F5F5", // Light Grey
+    "#E0F7FA", // Cyan Tint
+    "#F1F8E9", // Mint Green
+    "#F9FBE7", // Lemon Tint
+    "#FFF3E0", // Cream Orange
+    "#F3E5F5", // Light Purple
+    "#EDE7F6", // Soft Violet
+    "#E8EAF6", // Pale Indigo
+    "#ECEFF1", // Cool Grey
   ];
 
   // Pick a random background color for each card instance
@@ -151,7 +151,6 @@ const StatusCard = ({ status, index }) => {
     () => colors[Math.floor(Math.random() * colors.length)]
   );
   const textColor = isColorDark(bgColor) ? "#fff" : "#222";
-
 
   // Glassmorphism overlay style
   const glassStyle = {
@@ -169,7 +168,10 @@ const StatusCard = ({ status, index }) => {
 
   // Card hover animation
   const cardMotion = {
-    whileHover: { scale: 1.045, boxShadow: "0 8px 32px 0 rgba(31,38,135,0.18)" },
+    whileHover: {
+      scale: 1.045,
+      boxShadow: "0 8px 32px 0 rgba(31,38,135,0.18)",
+    },
     whileTap: { scale: 0.98 },
   };
 
@@ -186,7 +188,7 @@ const StatusCard = ({ status, index }) => {
     >
       <div>
         <div
-          className="relative w-full h-[320px] sm:h-[340px] md:h-[260px] lg:h-[380px] xl:h-[400px] max-w-[95vw] sm:max-w-[260px] md:max-w-[280px] !xl:max-w-[400px] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/10 bg-clip-padding"
+          className="relative w-full h-[320px] sm:h-[340px] md:h-[260px] lg:h-[380px] xl:h-[400px] max-w-[95vw] sm:max-w-[260px] md:max-w-[280px] !xl:max-w-[400px] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/10"
           style={{
             background: bgColor,
             position: "relative",
@@ -243,12 +245,7 @@ const StatusCard = ({ status, index }) => {
 
             {/* Footer */}
             <div className="flex items-center justify-between mt-4">
-              <div className="flex items-center space-x-2">
-                <span className="text-xs font-medium text-white/90">
-                  {status.author}
-                </span>
-              </div>
-              <span className="text-[10px] uppercase tracking-wide bg-white/20 px-3 py-1 rounded-full text-white/90 backdrop-blur-sm">
+              <span className="text-[10px] uppercase tracking-wide bg-pink-500 px-3 py-1 rounded-full text-white/90 backdrop-blur-sm">
                 {status.category}
               </span>
             </div>
@@ -256,21 +253,21 @@ const StatusCard = ({ status, index }) => {
 
           {/* Hover Actions */}
           <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-all duration-500 z-20">
-            <motion.button
+            <button
               whileHover={{ scale: 1.15, rotate: 5 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleLike}
               className={`w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-md shadow-md transition-colors ${
                 status.isLiked
                   ? "bg-red-500 text-white"
-                  : "bg-white/20 text-white hover:bg-red-500"
+                  : "bg-red-500 text-white"
               }`}
             >
               <Heart
                 className="w-4 h-4"
                 fill={status.isLiked ? "currentColor" : "none"}
               />
-            </motion.button>
+            </button>
             <motion.button
               whileHover={{ scale: 1.15, rotate: -5 }}
               whileTap={{ scale: 0.9 }}
@@ -278,7 +275,7 @@ const StatusCard = ({ status, index }) => {
               className={`w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-md shadow-md transition-colors ${
                 status.isSaved
                   ? "bg-yellow-500 text-white"
-                  : "bg-white/20 text-white hover:bg-yellow-500"
+                  : "bg-yellow-500 text-white"
               }`}
             >
               <Bookmark
@@ -290,7 +287,7 @@ const StatusCard = ({ status, index }) => {
               whileHover={{ scale: 1.15 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleShare}
-              className="w-9 h-9 rounded-full bg-white/20 text-white hover:bg-blue-500 flex items-center justify-center backdrop-blur-md shadow-md transition-colors"
+              className="w-9 h-9 rounded-full text-white bg-blue-500 flex items-center justify-center backdrop-blur-md shadow-md transition-colors"
             >
               <Share2 className="w-4 h-4" />
             </motion.button>
@@ -298,7 +295,7 @@ const StatusCard = ({ status, index }) => {
               whileHover={{ scale: 1.15 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleDownload}
-              className="w-9 h-9 rounded-full bg-white/20 text-white hover:bg-green-500 flex items-center justify-center backdrop-blur-md shadow-md transition-colors"
+              className="w-9 h-9 rounded-full text-white  bg-green-500 flex items-center justify-center backdrop-blur-md shadow-md transition-colors"
             >
               <Download className="w-4 h-4" />
             </motion.button>
