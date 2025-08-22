@@ -108,16 +108,59 @@ const StatusCard = ({ status, index }) => {
     dispatch(setSelectedStatus(status));
   };
 
+  // Card styles
+
+  // Helper to determine if color is "light" or "dark"
+  const isColorDark = (hex) => {
+    // Remove hash if present
+    hex = hex.replace("#", "");
+    // Convert to RGB
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    // Calculate luminance
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return luminance < 0.5;
+  };
+
+  const colors = [
+    "#8B0000", // Dark Red
+    "#FF4500", // Orange Red
+    "#FFD700", // Golden Yellow
+    "#006400", // Dark Green
+    "#228B22", // Forest Green
+    "#1E90FF", // Dodger Blue
+    "#00008B", // Dark Blue
+    "#4B0082", // Indigo
+    "#800080", // Purple
+    "#FF1493", // Deep Pink
+    "#A52A2A", // Brown
+    "#2F4F4F", // Dark Slate Gray
+    "#20B2AA", // Light Sea Green
+    "#FF6347", // Tomato
+    "#4682B4", // Steel Blue
+    "#DAA520", // Goldenrod
+    "#C71585", // Medium Violet Red
+    "#7B68EE", // Medium Slate Blue
+    "#3CB371", // Medium Sea Green
+    "#B22222", // Firebrick
+  ];
+
+  // Pick a random background color for each card instance
+  const [bgColor] = React.useState(
+    () => colors[Math.floor(Math.random() * colors.length)]
+  );
+  const textColor = isColorDark(bgColor) ? "#fff" : "#222";
+
   return (
     <div
-      className="group cursor-pointer m-2" // Add margin for spacing
+      className="group cursor-pointer m-2"
       onClick={handleView}
     >
       <div
         className="relative w-full h-[320px] sm:h-[340px] md:h-[260px] lg:h-[380px] xl:h-[400px] max-w-[95vw] sm:max-w-[260px] md:max-w-[280px] !xl:max-w-[400px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/10 bg-clip-padding"
         style={{
-          background: status.background,
-          fontFamily: status.font,
+          background: bgColor,
         }}
       >
         {/* Overlay with gradient glass effect */}
@@ -130,9 +173,14 @@ const StatusCard = ({ status, index }) => {
             <p
               className="text-center leading-relaxed drop-shadow-md"
               style={{
-                color: status.color,
+                color: textColor,
                 fontSize: "clamp(15px, 2.5vw, 20px)",
                 textAlign: status.text.length > 100 ? "left" : "center",
+                textShadow: isColorDark(bgColor)
+                  ? "0 2px 8px rgba(0,0,0,0.25)"
+                  : "0 2px 8px rgba(255,255,255,0.25)",
+                fontWeight: 600,
+                letterSpacing: "0.01em",
               }}
             >
               {status.text}
@@ -211,4 +259,3 @@ const StatusCard = ({ status, index }) => {
 };
 
 export default StatusCard;
-
