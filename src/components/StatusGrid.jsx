@@ -1,12 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { motion } from "framer-motion";
-import StatusCard from "./StatusCard";
+  import StatusCard from "./StatusCard";
 
 const StatusGrid = () => {
-  const { filteredStatuses, loading } = useSelector(
-    (state) => state.status
-  );
+  const { filteredStatuses, loading } = useSelector((state) => state.status);
   const gridRef = useRef(null);
   const [page, setPage] = useState(1);
   const cardsPerPage = 20;
@@ -52,16 +49,22 @@ const StatusGrid = () => {
   }
 
   return (
-    <section className="py-6 px-2 sm:py-8 sm:px-4 max-w-full sm:max-w-7xl mx-auto">
-      <motion.div
+    <section
+      className="py-8 px-2 sm:py-12 sm:px-4 max-w-full  mx-auto relative"
+      style={{
+        overflow: "hidden",
+      }}
+    >
+      {/* Animated background */}
+      <div className="absolute inset-0 z-0 pointer-events-none" />
+      <div
         ref={gridRef}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="grid gap-6 sm:gap-8 auto-rows-[10px]"
+        className="grid gap-8 sm:gap-10 auto-rows-[10px] relative z-10"
         style={{
-          gridTemplateColumns:
-            "repeat(auto-fit, minmax(260px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
         }}
       >
         {filteredStatuses
@@ -73,28 +76,46 @@ const StatusGrid = () => {
               </div>
             </div>
           ))}
-      </motion.div>
+      </div>
 
       {/* Pagination Controls */}
       {filteredStatuses.length > cardsPerPage && (
-        <div className="flex justify-center items-center mt-8 space-x-12">
-          <button
-            className="px-4 py-2 rounded bg-gray-200 text-pink-500 font-medium disabled:opacity-50 mt-12"
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-            disabled={page === 1}
-          >
-            Prev
-          </button>
-          <span className="px-2 text-gray-700 mt-12">
-            Page {page} of {totalPages}
-          </span>
-          <button
-            className="px-4 py-2 rounded bg-gray-200 text-pink-500 font-medium disabled:opacity-50 mt-12"
-            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            disabled={page === totalPages}
-          >
-            Next
-          </button>
+        <div className="flex flex-col items-center mt-8 space-y-4">
+          <div className="flex justify-center items-center space-x-12">
+            <button
+              className="px-4 py-2 rounded bg-gray-200 text-pink-500 font-medium disabled:opacity-50 mt-12"
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+            >
+              Prev
+            </button>
+            <span className="px-2 text-gray-700 mt-12">
+              Page {page} of {totalPages}
+            </span>
+
+            <button
+              className="px-4 py-2 rounded bg-gray-200 text-pink-500 font-medium disabled:opacity-50 mt-12"
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            >
+              Next
+            </button>
+          </div>
+          {/* Numbered page buttons */}
+          <div className="flex flex-wrap justify-center gap-2 mt-2">
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button
+                key={i + 1}
+                className={`px-3 py-1 rounded-full border text-sm font-semibold transition-colors ${
+                  page === i + 1
+                    ? "bg-pink-500 text-white border-pink-500"
+                    : "bg-white text-pink-500 border-gray-300 hover:bg-pink-100"
+                }`}
+                onClick={() => setPage(i + 1)}
+                disabled={page === i + 1}
+              >
+                {i + 1}
+              </button>
+            ))}
+          </div>
         </div>
       )}
 
@@ -111,6 +132,14 @@ const StatusGrid = () => {
           </p>
         </div>
       )}
+      <style>
+        {`
+        @keyframes bg-move {
+          0% { background-position: 0% 0%; }
+          100% { background-position: 100% 100%; }
+        }
+        `}
+      </style>
     </section>
   );
 };
