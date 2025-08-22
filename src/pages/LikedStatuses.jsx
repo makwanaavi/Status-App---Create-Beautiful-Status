@@ -23,12 +23,8 @@ const LikedStatuses = () => {
   return (
     <>
       <Header />
-      {/* Category Filter Dropdown */}
-      <div className="bg-white py-4">
-        <div className="container mx-auto px-4">
           <CategoryFilter />
-        </div>
-      </div>
+     
       <section className="py-8 px-4 max-w-7xl mx-auto min-h-screen">
         <h2 className="text-2xl font-bold mb-6 text-pink-600">
           Liked Statuses
