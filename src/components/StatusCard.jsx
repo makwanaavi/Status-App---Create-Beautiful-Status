@@ -154,7 +154,7 @@ const StatusCard = ({ status, index }) => {
 
   return (
     <div
-      className="group cursor-pointer m-2"
+      className="group cursor-pointer m-2 h-full w-full"
       onClick={handleView}
     >
       <div
@@ -164,7 +164,7 @@ const StatusCard = ({ status, index }) => {
         }}
       >
         {/* Overlay with gradient glass effect */}
-        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 backdrop-blur-[2px] transition-all duration-500" />
+        <div className="absolute inset-0 transition-all duration-500" />
 
         {/* Content */}
         <div className="relative h-full p-4 sm:p-6 flex flex-col justify-between">

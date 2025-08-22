@@ -186,7 +186,7 @@ const StatusViewer = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 mx-9 mt-12"
+        className="fixed inset-0 min-h-screen z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center "
         onClick={handleClose}
       >
         {/* Navigation Arrows */}
@@ -199,7 +199,7 @@ const StatusViewer = () => {
               e.stopPropagation();
               handlePrevious();
             }}
-            className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all z-10"
+            className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-pink-500 hover:bg-white/20 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all z-10"
           >
             <ArrowLeft className="w-6 h-6" />
           </motion.button>
@@ -214,7 +214,7 @@ const StatusViewer = () => {
               e.stopPropagation();
               handleNext();
             }}
-            className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all z-10"
+            className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-pink-500 hover:bg-white/20 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all z-10"
           >
             <ArrowRight className="w-6 h-6" />
           </motion.button>
@@ -226,7 +226,7 @@ const StatusViewer = () => {
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.1 }}
           onClick={handleClose}
-          className="absolute top-2 sm:top-4 right-2 sm:right-4 w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all z-10"
+          className="absolute top-2 sm:top-4 right-2 sm:right-4 w-10 h-10 sm:w-12 sm:h-12 bg-pink-500 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all z-10"
         >
           <X className="w-6 h-6" />
         </motion.button>

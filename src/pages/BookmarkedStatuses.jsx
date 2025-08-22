@@ -17,9 +17,16 @@ const BookmarkedStatuses = () => {
         {bookmarked.length === 0 ? (
           <div className="text-center text-gray-500 py-16">No bookmarked statuses yet.</div>
         ) : (
-          <div className="grid gap-4 sm:gap-6" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))" }}>
+          <div
+            className="grid gap-6 sm:gap-8"
+            style={{
+              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+            }}
+          >
             {bookmarked.map((status, idx) => (
-              <StatusCard key={status.id} status={status} index={idx} />
+              <div key={status.id} className="flex justify-center">
+                <StatusCard status={status} index={idx} />
+              </div>
             ))}
           </div>
         )}
