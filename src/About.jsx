@@ -5,7 +5,7 @@ const About = () => {
   return (
     <>
       <Header />
-      <div className="bg-gradient-to-b from-pink-50 to-white min-h-screen py-12">
+      <div className="bg-white min-h-screen py-12">
         <div className="container mx-auto  px-4">
           <div className="bg-white rounded-xl shadow-lg p-8">
             <h2 className="text-3xl font-extrabold text-pink-700 mb-6 text-center">
