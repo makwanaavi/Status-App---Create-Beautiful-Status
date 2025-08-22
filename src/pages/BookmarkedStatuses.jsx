@@ -1,10 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
 import StatusCard from "../components/StatusCard";
 
-const BookmarkedStatuses: React.FC = () => {
-  const { statuses } = useSelector((state: RootState) => state.status);
+const BookmarkedStatuses = () => {
+  const { statuses } = useSelector((state) => state.status);
   const bookmarked = statuses.filter((s) => s.isSaved);
 
   return (

@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Type, Palette, Image, Download, Share2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
 import {
   setText,
   setFont,
@@ -12,12 +11,12 @@ import {
   setAlignment,
   setEditorOpen,
   resetEditor,
-} from "../store/slices/editorSlice";
-import { addStatus } from "../store/slices/statusSlice";
+  addStatus,
+} from "../Redux/Action";
 
-const StatusEditor: React.FC = () => {
+const StatusEditor = () => {
   const dispatch = useDispatch();
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef(null);
   const {
     text,
     font,
@@ -28,7 +27,7 @@ const StatusEditor: React.FC = () => {
     isEditorOpen,
     availableFonts,
     availableBackgrounds,
-  } = useSelector((state: RootState) => state.editor);
+  } = useSelector((state) => state.editor);
 
   const handleClose = () => {
     dispatch(setEditorOpen(false));

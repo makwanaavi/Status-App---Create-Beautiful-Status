@@ -2,32 +2,22 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Heart, Bookmark, Share2, Download } from "lucide-react";
 import { useDispatch } from "react-redux";
-import { Status } from "../store/slices/statusSlice";
-import {
-  toggleLike,
-  toggleSave,
-  setSelectedStatus,
-} from "../store/slices/statusSlice";
+import { toggleLike, toggleSave, setSelectedStatus } from "../Redux/Action";
 
-interface StatusCardProps {
-  status: Status;
-  index: number;
-}
-
-const StatusCard: React.FC<StatusCardProps> = ({ status }) => {
+const StatusCard = ({ status, index }) => {
   const dispatch = useDispatch();
 
-  const handleLike = (e: React.MouseEvent) => {
+  const handleLike = (e) => {
     e.stopPropagation();
     dispatch(toggleLike(status.id));
   };
 
-  const handleSave = (e: React.MouseEvent) => {
+  const handleSave = (e) => {
     e.stopPropagation();
     dispatch(toggleSave(status.id));
   };
 
-  const handleShare = async (e: React.MouseEvent) => {
+  const handleShare = async (e) => {
     e.stopPropagation();
     const shareUrl = `${window.location.origin}/status/${status.id}`;
     const shareText = `${status.text}\n\n- ${status.author}\n${shareUrl}`;
@@ -40,7 +30,7 @@ const StatusCard: React.FC<StatusCardProps> = ({ status }) => {
         });
       } catch (err) {
         console.error("Error sharing:", err);
-        
+
         // fallback to clipboard if user cancels or error occurs
         await navigator.clipboard.writeText(shareText);
         alert("Status link copied to clipboard!");
@@ -53,7 +43,7 @@ const StatusCard: React.FC<StatusCardProps> = ({ status }) => {
     }
   };
 
-  const handleDownload = (e: React.MouseEvent) => {
+  const handleDownload = (e) => {
     e.stopPropagation();
     const canvas = document.createElement("canvas");
     canvas.width = 800;
@@ -64,7 +54,12 @@ const StatusCard: React.FC<StatusCardProps> = ({ status }) => {
     // Create gradient background
     let fillStyle;
     if (status.background.includes("gradient")) {
-      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      const gradient = ctx.createLinearGradient(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
       gradient.addColorStop(0, "#667eea");
       gradient.addColorStop(1, "#764ba2");
       fillStyle = gradient;
@@ -113,6 +108,11 @@ const StatusCard: React.FC<StatusCardProps> = ({ status }) => {
     dispatch(setSelectedStatus(status));
   };
 
+  const colorsHandeler = () => {
+    const colors = ["#33FF57", "#3357FF", "#33FFF5", "#F5FF33"];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+
   return (
     <div
       className="group cursor-pointer m-2" // Add margin for spacing
@@ -121,7 +121,7 @@ const StatusCard: React.FC<StatusCardProps> = ({ status }) => {
       <div
         className="relative w-full h-[320px] sm:h-[340px] md:h-[260px] lg:h-[380px] xl:h-[400px] max-w-[95vw] sm:max-w-[260px] md:max-w-[280px] !xl:max-w-[400px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/10 bg-clip-padding"
         style={{
-          background: status.background,
+          background: colorsHandeler(),
           fontFamily: status.font,
         }}
       >

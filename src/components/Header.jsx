@@ -2,19 +2,18 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Search, Plus, Heart, Bookmark } from "lucide-react";
 import { motion } from "framer-motion";
-import { RootState } from "../store/store";
-import { setSearchQuery, setEditorOpen } from "../store/slices/editorSlice";
+import { setSearchQuery, setEditorOpen } from "../Redux/Action";
 import { Link } from "react-router-dom";
 
-const Header: React.FC = () => {
+const Header = () => {
   const dispatch = useDispatch();
-  const { searchQuery } = useSelector((state: RootState) => state.editor);
-  const { statuses } = useSelector((state: RootState) => state.status);
+  const { searchQuery } = useSelector((state) => state.editor);
+  const { statuses } = useSelector((state) => state.status);
 
   const likedCount = statuses.filter((s) => s.isLiked).length;
   const bookmarkedCount = statuses.filter((s) => s.isSaved).length;
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = (e) => {
     dispatch(setSearchQuery(e.target.value));
   };
 
@@ -114,4 +113,5 @@ const Header: React.FC = () => {
   );
 };
 
+export default Header;
 export default Header;
