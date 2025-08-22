@@ -26,7 +26,7 @@ const BookmarkedStatuses = () => {
       <CategoryFilter />
       {/* Category Filter Dropdown */}
       
-      <section className="py-8 px-4 mx-auto min-h-screen px-24">
+      <section className="py-8 mx-auto min-h-screen px-24">
         <h2 className="text-2xl font-bold mb-6 text-pink-600">
           Bookmarked Statuses
         </h2>
