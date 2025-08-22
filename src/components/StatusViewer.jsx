@@ -243,7 +243,6 @@ const StatusViewer = () => {
             fontFamily: selectedStatus.font,
           }}
         >
-          <div className="absolute inset-0 bg-black/30" />
           <div className="relative h-full p-6 flex flex-col justify-between">
             {/* Main Text */}
             <div className="flex-1 flex items-center justify-center">
