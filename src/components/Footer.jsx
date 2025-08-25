@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { FaInstagram, FaTwitter, FaFacebook, FaYoutube } from "react-icons/fa";
+import { setActiveCategory } from "../Redux/Action";
 
 const Footer = () => {
+  const dispatch = useDispatch();
   // Get categories from Redux state
   const { statuses } = useSelector((state) => state.status);
   const categories = Array.from(
@@ -20,6 +22,11 @@ const Footer = () => {
       links: ["Home", "About Us", "Contact Us", "FAQs"],
     },
   ];
+
+  const handleCategoryClick = (cat) => {
+    dispatch(setActiveCategory(cat));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <footer className="relative bg-gradient-to-br from-pink-100 via-white to-purple-100 shadow-2xl mt-24">
@@ -86,12 +93,14 @@ const Footer = () => {
                 {catRows.map((row, rowIdx) => (
                   <div key={rowIdx} className="flex flex-wrap gap-2">
                     {row.map((cat) => (
-                      <span
+                      <button
                         key={cat}
-                        className="px-4 py-1 rounded-full bg-pink-500 text-white font-semibold text-sm shadow hover:from-pink-200 hover:to-purple-200  transition cursor-pointer border border-pink-200"
+                        type="button"
+                        onClick={() => handleCategoryClick(cat)}
+                        className="px-4 py-1 rounded-full bg-pink-500 text-white font-semibold text-sm shadow hover:from-pink-200 hover:to-purple-200 transition cursor-pointer border border-pink-200"
                       >
                         {cat}
-                      </span>
+                      </button>
                     ))}
                   </div>
                 ))}
