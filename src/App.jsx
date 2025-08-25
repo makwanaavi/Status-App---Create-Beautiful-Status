@@ -16,6 +16,8 @@ import LikedStatuses from "./pages/LikedStatuses";
 import BookmarkedStatuses from "./pages/BookmarkedStatuses";
 import Footer from "./components/Footer";
 
+
+
 const App = () => {
   useEffect(() => {
     // Only set mockStatuses if there is no persisted state
