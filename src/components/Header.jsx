@@ -54,9 +54,10 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full bg-white px-2 sm:px-4 md:px-12 lg:px-24">
       <div className="w-full mx-auto">
-        <div className="flex flex-col sm:flex-row items-center justify-between h-auto sm:h-16 py-2 sm:py-0 gap-3 sm:gap-0">
-          {/* Logo */}
-          <div className="flex items-center mb-2 sm:mb-0">
+        {/* MOBILE: logo + menu button row, then search bar below */}
+        <div className="flex flex-col md:flex-row items-center justify-between h-auto sm:h-16 py-2 sm:py-0 gap-3 sm:gap-0">
+          {/* Top row for mobile: logo and menu button */}
+          <div className="flex w-full md:w-auto items-center justify-between md:justify-start mb-2 sm:mb-0">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-pink-600 rounded-lg flex items-center justify-center shadow-md">
                 <span className="text-white font-bold text-2xl sm:text-3xl">S</span>
@@ -65,8 +66,15 @@ const Header = () => {
                 <Link to={"/"}>Status</Link>
               </h1>
             </div>
+            {/* Hamburger Menu Button (Mobile/Tablet) */}
+            <button
+              className="md:hidden flex items-center justify-center p-2 rounded-full bg-pink-50 hover:bg-pink-100 transition ml-2"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label="Open menu"
+            >
+              {menuOpen ? <X className="w-7 h-7 text-pink-600" /> : <Menu className="w-7 h-7 text-pink-600" />}
+            </button>
           </div>
-
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-6 text-pink-500 font-medium text-sm sm:text-base">
             <Link to={"/"} className="hover:text-pink-700 transition">Home</Link>
@@ -74,8 +82,7 @@ const Header = () => {
             <Link to={"/contact"} className="hover:text-pink-700 transition">Contact</Link>
             <Link to={"/faq"} className="hover:text-pink-700 transition">FAQ</Link>
           </div>
-
-          {/* Search Bar */}
+          {/* Search Bar - always below logo/menu on mobile, inline on desktop */}
           <div className="w-full sm:flex-1 max-w-full sm:max-w-md mx-0 sm:mx-4 mb-2 sm:mb-0">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
@@ -108,7 +115,6 @@ const Header = () => {
               )}
             </div>
           </div>
-
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-2 sm:space-x-4">
             <button
@@ -145,18 +151,8 @@ const Header = () => {
               </motion.div>
             </Link>
           </div>
-
-          {/* Hamburger Menu Button (Mobile/Tablet) */}
-          <button
-            className="md:hidden flex items-center justify-center p-2 rounded-full bg-pink-50 hover:bg-pink-100 transition"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label="Open menu"
-          >
-            {menuOpen ? <X className="w-7 h-7 text-pink-600" /> : <Menu className="w-7 h-7 text-pink-600" />}
-          </button>
         </div>
       </div>
-
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {menuOpen && (
@@ -165,10 +161,10 @@ const Header = () => {
             animate="open"
             exit="exit"
             variants={menuVariants}
-            className="fixed top-0 right-0 w-4/5 max-w-xs h-full bg-white z-[999] shadow-2xl flex flex-col px-6 py-8"
+            className="fixed top-0 left-0 w-full h-full bg-white z-[999] shadow-2xl flex flex-col items-center justify-center px-6 py-8"
             style={{ minWidth: 220 }}
           >
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between w-full max-w-xs mx-auto mb-8">
               <span className="text-2xl font-bold text-pink-600">Menu</span>
               <button
                 onClick={() => setMenuOpen(false)}
@@ -178,68 +174,70 @@ const Header = () => {
                 <X className="w-6 h-6 text-pink-600" />
               </button>
             </div>
-            <Link
-              to="/"
-              className="py-3 px-2 text-lg font-medium text-gray-700 hover:text-pink-600 transition"
-              onClick={() => setMenuOpen(false)}
-            >
-              Home
-            </Link>
-            <Link
-              to="/about"
-              className="py-3 px-2 text-lg font-medium text-gray-700 hover:text-pink-600 transition"
-              onClick={() => setMenuOpen(false)}
-            >
-              About
-            </Link>
-            <Link
-              to="/contact"
-              className="py-3 px-2 text-lg font-medium text-gray-700 hover:text-pink-600 transition"
-              onClick={() => setMenuOpen(false)}
-            >
-              Contact
-            </Link>
-            <Link
-              to="/faq"
-              className="py-3 px-2 text-lg font-medium text-gray-700 hover:text-pink-600 transition"
-              onClick={() => setMenuOpen(false)}
-            >
-              FAQ
-            </Link>
-            <button
-              onClick={openEditor}
-              className="mt-6 flex items-center space-x-2 bg-pink-600 text-white px-4 py-3 rounded-full hover:shadow-lg transition text-base font-semibold w-full justify-center"
-            >
-              <Plus className="w-5 h-5" />
-              <span>Create</span>
-            </button>
-            <div className="flex items-center justify-between mt-8">
+            <div className="flex flex-col items-center w-full max-w-xs mx-auto space-y-2">
               <Link
-                to="/liked"
-                className="relative flex items-center space-x-2 text-gray-700 hover:text-pink-600 transition"
+                to="/"
+                className="py-3 px-2 text-lg font-medium text-gray-700 hover:text-pink-600 transition w-full text-center"
                 onClick={() => setMenuOpen(false)}
               >
-                <Heart className="w-5 h-5" />
-                <span>Liked</span>
-                {likedCount > 0 && (
-                  <span className="ml-1 bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5 min-w-[18px] text-center font-bold">
-                    {likedCount}
-                  </span>
-                )}
+                Home
               </Link>
               <Link
-                to="/bookmarked"
-                className="relative flex items-center space-x-2 text-gray-700 hover:text-pink-600 transition"
+                to="/about"
+                className="py-3 px-2 text-lg font-medium text-gray-700 hover:text-pink-600 transition w-full text-center"
                 onClick={() => setMenuOpen(false)}
               >
-                <Bookmark className="w-5 h-5" />
-                <span>Bookmarked</span>
-                {bookmarkedCount > 0 && (
-                  <span className="ml-1 bg-yellow-500 text-white text-xs rounded-full px-1.5 py-0.5 min-w-[18px] text-center font-bold">
-                    {bookmarkedCount}
-                  </span>
-                )}
+                About
               </Link>
+              <Link
+                to="/contact"
+                className="py-3 px-2 text-lg font-medium text-gray-700 hover:text-pink-600 transition w-full text-center"
+                onClick={() => setMenuOpen(false)}
+              >
+                Contact
+              </Link>
+              <Link
+                to="/faq"
+                className="py-3 px-2 text-lg font-medium text-gray-700 hover:text-pink-600 transition w-full text-center"
+                onClick={() => setMenuOpen(false)}
+              >
+                FAQ
+              </Link>
+              <button
+                onClick={openEditor}
+                className="mt-6 flex items-center space-x-2 bg-pink-600 text-white px-4 py-3 rounded-full hover:shadow-lg transition text-base font-semibold w-full justify-center"
+              >
+                <Plus className="w-5 h-5" />
+                <span>Create</span>
+              </button>
+              <div className="flex items-center justify-between mt-8 w-full">
+                <Link
+                  to="/liked"
+                  className="relative flex items-center space-x-2 text-gray-700 hover:text-pink-600 transition"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <Heart className="w-5 h-5" />
+                  <span>Liked</span>
+                  {likedCount > 0 && (
+                    <span className="ml-1 bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5 min-w-[18px] text-center font-bold">
+                      {likedCount}
+                    </span>
+                  )}
+                </Link>
+                <Link
+                  to="/bookmarked"
+                  className="relative flex items-center space-x-2 text-gray-700 hover:text-pink-600 transition"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <Bookmark className="w-5 h-5" />
+                  <span>Bookmarked</span>
+                  {bookmarkedCount > 0 && (
+                    <span className="ml-1 bg-yellow-500 text-white text-xs rounded-full px-1.5 py-0.5 min-w-[18px] text-center font-bold">
+                      {bookmarkedCount}
+                    </span>
+                  )}
+                </Link>
+              </div>
             </div>
           </motion.nav>
         )}
