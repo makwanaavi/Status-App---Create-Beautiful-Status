@@ -376,4 +376,41 @@ export const mockStatuses = [
     isLiked: false,
     isSaved: false,
   },
+    {
+    id: "50",
+    text: "True love is eternal, infinite, and always like itself.",
+    category: "Love",
+    isLiked: false,
+    isSaved: false,
+  },
+  {
+    id: "51",
+    text: "The best thing to hold onto in life is each other.",
+    category: "Love",
+    isLiked: false,
+    isSaved: false,
+  },
+  // Motivational
+  {
+    id: "52",
+    text: "Push yourself, because no one else is going to do it for you.",
+    category: "Motivational",
+    isLiked: false,
+    isSaved: false,
+  },
+  {
+    id: "53",
+    text: "Success is not for the lazy.",
+    category: "Motivational",
+    isLiked: false,
+    isSaved: false,
+  },
+  // Sad
+  {
+    id: "54",
+    text: "Tears come from the heart and not from the brain.",
+    category: "Sad",
+    isLiked: false,
+    isSaved: false,
+  },
 ];
