@@ -5,11 +5,14 @@ import StatusCard from "./StatusCard";
 const StatusGrid = () => {
   const { filteredStatuses, loading } = useSelector((state) => state.status);
   const [page, setPage] = useState(1);
-  const cardsPerPage = 24;
+  const cardsPerPage = 25;
   const totalPages = Math.ceil(filteredStatuses.length / cardsPerPage);
 
   // Calculate cards for current page and empty slots
-  const pageStatuses = filteredStatuses.slice((page - 1) * cardsPerPage, page * cardsPerPage);
+  const pageStatuses = filteredStatuses.slice(
+    (page - 1) * cardsPerPage,
+    page * cardsPerPage
+  );
   const emptySlots = cardsPerPage - pageStatuses.length;
 
   if (loading) {
@@ -36,7 +39,11 @@ const StatusGrid = () => {
         }}
       >
         {pageStatuses.map((status, index) => (
-          <div key={status.id} className="flex justify-center items-stretch" style={{ flex: "1 0 260px", maxWidth: 340 }}>
+          <div
+            key={status.id}
+            className="flex justify-center items-stretch"
+            style={{ flex: "1 0 260px", maxWidth: 340 }}
+          >
             <div className="w-full h-full flex">
               <StatusCard status={status} index={index} />
             </div>

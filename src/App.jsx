@@ -18,7 +18,11 @@ import Footer from "./components/Footer";
 
 const App = () => {
   useEffect(() => {
-    store.dispatch(setStatuses(mockStatuses));
+    // Only set mockStatuses if there is no persisted state
+    const persisted = localStorage.getItem("reduxState");
+    if (!persisted) {
+      store.dispatch(setStatuses(mockStatuses));
+    }
   }, []);
 
   const HomePage = () => (
