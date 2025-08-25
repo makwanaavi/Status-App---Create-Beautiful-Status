@@ -189,7 +189,6 @@ const StatusViewer = () => {
         className="fixed inset-0 min-h-screen z-50 bg-black/10 backdrop-blur-sm flex items-center justify-center"
         onClick={handleClose}
         style={{
-          // Glassmorphism overlay
           background: "rgba(30, 34, 90, 0.25)",
           backdropFilter: "blur(8px)",
           WebkitBackdropFilter: "blur(8px)",
@@ -243,7 +242,7 @@ const StatusViewer = () => {
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.8, opacity: 0 }}
           onClick={(e) => e.stopPropagation()}
-          className="relative w-[260px] h-[340px] sm:w-[340px] sm:h-[440px] rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+          className="relative w-[95vw] max-w-[340px] h-[60vh] max-h-[440px] sm:w-[340px] sm:h-[440px] rounded-2xl overflow-hidden shadow-2xl flex flex-col"
           style={{
             background: selectedStatus.background,
             fontFamily: selectedStatus.font,

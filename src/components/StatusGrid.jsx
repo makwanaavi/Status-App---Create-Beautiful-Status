@@ -1,19 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import StatusCard from "./StatusCard";
 
 const StatusGrid = () => {
   const { filteredStatuses, loading } = useSelector((state) => state.status);
   const [page, setPage] = useState(1);
-  const cardsPerPage = 25;
-  const totalPages = Math.ceil(filteredStatuses.length / cardsPerPage);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
-  // Calculate cards for current page and empty slots
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1850) {
+        setItemsPerPage(18);
+      } else if (window.innerWidth >= 1600) {
+        setItemsPerPage(16);
+      } else if (window.innerWidth >= 1550) {
+        setItemsPerPage(14);
+      } else if (window.innerWidth >= 1450) {
+        setItemsPerPage(12);
+      } else if (window.innerWidth >= 1024) {
+        setItemsPerPage(11);
+      } else if (window.innerWidth >= 640) {
+        setItemsPerPage(6);
+      } else {
+        setItemsPerPage(3);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const totalPages = Math.ceil(filteredStatuses.length / itemsPerPage);
+
   const pageStatuses = filteredStatuses.slice(
-    (page - 1) * cardsPerPage,
-    page * cardsPerPage
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
   );
-  const emptySlots = cardsPerPage - pageStatuses.length;
+  const emptySlots = itemsPerPage - pageStatuses.length;
 
   if (loading) {
     return (
@@ -25,7 +48,7 @@ const StatusGrid = () => {
 
   return (
     <section
-      className="py-8 px-2 sm:py-12 sm:px-4 max-w-full mx-auto relative"
+      className="py-4 sm:py-8 px-1 sm:px-2 md:px-4 max-w-full mx-auto relative"
       style={{
         overflow: "hidden",
       }}
@@ -33,7 +56,7 @@ const StatusGrid = () => {
       {/* Animated background */}
       <div className="absolute inset-0 z-0 pointer-events-none" />
       <div
-        className="flex flex-wrap gap-8 sm:gap-10 relative z-10"
+        className="flex flex-wrap gap-4 sm:gap-8 md:gap-10 relative z-10"
         style={{
           justifyContent: "flex-start",
         }}
@@ -49,35 +72,35 @@ const StatusGrid = () => {
             </div>
           </div>
         ))}
-        {/* Empty slots to fill up to 24 cards per page */}
+        {/* Empty slots to fill up the grid */}
         {Array.from({ length: emptySlots }).map((_, idx) => (
           <div
             key={`empty-${idx}`}
             className="flex justify-center items-stretch opacity-0"
-            style={{ flex: "1 0 260px", maxWidth: 340, minHeight: 320 }}
+            style={{ minWidth: 260, maxWidth: 340, minHeight: 320 }}
           >
             {/* Empty placeholder */}
           </div>
         ))}
       </div>
 
-      {/* Pagination Controls */}
-      {filteredStatuses.length > cardsPerPage && (
+      {filteredStatuses.length > itemsPerPage && (
         <div className="flex flex-col items-center mt-8 space-y-4">
           <div className="flex justify-center items-center space-x-12">
             <button
               className="px-4 py-2 rounded text-white bg-pink-500 font-medium disabled:opacity-50 mt-12"
               onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page === 1}
             >
               Prev
             </button>
             <span className="px-2 text-gray-700 mt-12">
               Page {page} of {totalPages}
             </span>
-
             <button
               className="px-4 py-2 rounded text-white bg-pink-500 font-medium disabled:opacity-50 mt-12"
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={page === totalPages}
             >
               Next
             </button>

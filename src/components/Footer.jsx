@@ -38,8 +38,8 @@ const Footer = () => {
           />
         </svg>
       </div>
-      <div className="relative z-10 px-6 md:px-24 py-16">
-        <div className="flex flex-col md:flex-row items-start justify-between gap-20 py-12 border-b border-gray-200 text-gray-600">
+      <div className="relative z-10 px-2 sm:px-6 md:px-24 py-8 sm:py-16">
+        <div className="flex flex-col md:flex-row items-start justify-between gap-10 md:gap-20 py-8 md:py-12 border-b border-gray-200 text-gray-600">
           {/* Logo and About */}
           <div className="flex flex-col gap-4 items-start mb-10 md:mb-0 max-w-xs">
             <div className="flex items-center mb-2 sm:mb-0">
@@ -58,7 +58,7 @@ const Footer = () => {
             </p>
           </div>
           {/* Links & Categories */}
-          <div className="flex flex-1 flex-col sm:flex-row gap-12 w-full md:w-auto">
+          <div className="flex flex-1 flex-col sm:flex-row gap-8 md:gap-12 w-full md:w-auto">
             {/* Quick Links */}
             <nav aria-label="Quick Links" className="min-w-[150px]">
               <h3 className="font-bold text-lg text-gray-900 mb-4 tracking-wide">
@@ -101,7 +101,7 @@ const Footer = () => {
           </div>
         </div>
         {/* Copyright */}
-        <div className="mt-10 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mt-6 md:mt-10 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
           <p className="py-8 text-center text-base md:text-lg text-gray-600 font-semibold tracking-wide">
             © 2025 Status. All Rights Reserved.
           </p>
