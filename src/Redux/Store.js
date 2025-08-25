@@ -31,9 +31,7 @@ const store = createStore(
   applyMiddleware(thunk)
 );
 
-// Subscribe to store changes and persist
 store.subscribe(() => {
-  // Only persist relevant slices
   const { status, user, editor } = store.getState();
   saveState({ status, user, editor });
 });
