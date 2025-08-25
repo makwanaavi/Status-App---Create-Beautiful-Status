@@ -72,16 +72,38 @@ const Footer = () => {
                 Quick Links
               </h3>
               <ul className="text-base space-y-3">
-                {linkSections[0].links.map((link, i) => (
-                  <li key={i}>
-                    <a
-                      href="#"
-                      className="hover:underline hover:text-pink-600 transition font-medium"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
+                <li>
+                  <Link
+                    to="/"
+                    className="hover:underline hover:text-pink-600 transition font-medium"
+                  >
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/about"
+                    className="hover:underline hover:text-pink-600 transition font-medium"
+                  >
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/contact"
+                    className="hover:underline hover:text-pink-600 transition font-medium"
+                  >
+                    Contact Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/faq"
+                    className="hover:underline hover:text-pink-600 transition font-medium"
+                  >
+                    FAQs
+                  </Link>
+                </li>
               </ul>
             </nav>
             {/* Categories */}
