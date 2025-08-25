@@ -186,12 +186,15 @@ const StatusCard = ({ status, index }) => {
     const handleResize = () => {
       const w = window.innerWidth;
       if (w >= 1850) setCardSize({ width: 340, height: 400 });
-      else if (w >= 1600) setCardSize({ width: 320, height: 380 });
-      else if (w >= 1200) setCardSize({ width: 280, height: 340 });
-      else if (w >= 900) setCardSize({ width: 240, height: 320 });
-      else if (w >= 640) setCardSize({ width: 200, height: 260 });
-      else setCardSize({ width: 160, height: 200 });
+      else if (w >= 1600) setCardSize({ width: 340, height: 400 });
+      else if (w >= 1200) setCardSize({ width: 340, height: 400 });
+      else if (w >= 900) setCardSize({ width: 340, height: 400 });
+      else if (w >= 640) setCardSize({ width: 340, height: 400 });
+      else setCardSize({ width: 340, height: 400 })
+      ;
     };
+
+    
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
