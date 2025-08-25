@@ -19,8 +19,10 @@ const StatusGrid = () => {
         setItemsPerPage(12);
       } else if (window.innerWidth >= 1024) {
         setItemsPerPage(11);
+      } else if (window.innerWidth >= 640) {
+        setItemsPerPage(6);
       } else {
-        setItemsPerPage(10);
+        setItemsPerPage(3);
       }
     };
     handleResize();
@@ -46,7 +48,7 @@ const StatusGrid = () => {
 
   return (
     <section
-      className="py-8 px-2 sm:py-12 sm:px-4 max-w-full mx-auto relative"
+      className="py-4 sm:py-8 px-1 sm:px-2 md:px-4 max-w-full mx-auto relative"
       style={{
         overflow: "hidden",
       }}
@@ -54,7 +56,7 @@ const StatusGrid = () => {
       {/* Animated background */}
       <div className="absolute inset-0 z-0 pointer-events-none" />
       <div
-        className="flex flex-wrap gap-8 sm:gap-10 relative z-10"
+        className="flex flex-wrap gap-4 sm:gap-8 md:gap-10 relative z-10"
         style={{
           justifyContent: "flex-start",
         }}

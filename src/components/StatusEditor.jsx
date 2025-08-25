@@ -144,11 +144,11 @@ const StatusEditor = () => {
       >
         <div className="h-full flex flex-col md:flex-row">
           {/* Canvas Area */}
-          <div className="flex-1 flex items-center justify-center p-2 sm:p-4 md:p-8">
+          <div className="flex-1 flex items-center justify-center p-1 sm:p-2 md:p-4">
             <div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="relative w-full max-w-xs sm:max-w-lg md:max-w-2xl aspect-square rounded-2xl overflow-hidden shadow-2xl"
+              className="relative w-full max-w-[95vw] sm:max-w-lg md:max-w-2xl aspect-square rounded-2xl overflow-hidden shadow-2xl"
               style={{ background, fontFamily: font }}
             >
               <div className="absolute inset-0 bg-black/5" />
@@ -169,7 +169,6 @@ const StatusEditor = () => {
               <canvas ref={canvasRef} className="hidden" />
             </div>
           </div>
-
           {/* Editor Panel */}
           <motion.div
             initial={{ x: 400, opacity: 0 }}
@@ -189,7 +188,6 @@ const StatusEditor = () => {
                 <X className="w-4 h-4" />
               </button>
             </div>
-
             {/* Tools */}
             <div className="flex-1 p-4 sm:p-6 space-y-4 sm:space-y-6 overflow-y-auto">
               {/* Font Selection */}
@@ -214,7 +212,6 @@ const StatusEditor = () => {
                   ))}
                 </select>
               </div>
-
               {/* Font Size */}
               <div>
                 <label className="text-sm font-medium text-gray-700 mb-3 block">
@@ -231,7 +228,6 @@ const StatusEditor = () => {
                   className="w-full"
                 />
               </div>
-
               {/* Text Color */}
               <div>
                 <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-3">
@@ -254,7 +250,6 @@ const StatusEditor = () => {
                   />
                 </div>
               </div>
-
               {/* Text Alignment */}
               <div>
                 <label className="text-sm font-medium text-gray-700 mb-3 block">
@@ -280,7 +275,6 @@ const StatusEditor = () => {
                   ))}
                 </div>
               </div>
-
               {/* Background Selection */}
               <div>
                 <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-3">
@@ -303,7 +297,6 @@ const StatusEditor = () => {
                 </div>
               </div>
             </div>
-
             {/* Actions */}
             <div className="p-4 sm:p-6 border-t border-gray-200 space-y-2 sm:space-y-3">
               <button
@@ -314,7 +307,6 @@ const StatusEditor = () => {
                 <Download className="w-4 h-4" />
                 <span>Download</span>
               </button>
-
               <button
                 onClick={handleSave}
                 disabled={!text.trim()}

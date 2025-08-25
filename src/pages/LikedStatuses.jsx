@@ -23,10 +23,9 @@ const LikedStatuses = () => {
   return (
     <>
       <Header />
-          <CategoryFilter />
-     
-      <section className="py-8 min-h-screen px-24">
-        <h2 className="text-2xl font-bold mb-6 text-pink-600">
+      <CategoryFilter />
+      <section className="py-6 sm:py-8 min-h-screen px-2 sm:px-4 md:px-24">
+        <h2 className="text-xl sm:text-2xl font-bold mb-6 text-pink-600">
           Liked Statuses
         </h2>
         {filteredLiked.length === 0 ? (
