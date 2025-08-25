@@ -179,20 +179,46 @@ const StatusCard = ({ status, index }) => {
   const avatarBg = isColorDark(bgColor) ? "#fff" : "#222";
   const avatarColor = isColorDark(bgColor) ? "#222" : "#fff";
 
+  // Responsive card size
+  const [cardSize, setCardSize] = React.useState({ width: 160, height: 220 });
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      const w = window.innerWidth;
+      if (w >= 1850) setCardSize({ width: 340, height: 400 });
+      else if (w >= 1600) setCardSize({ width: 320, height: 380 });
+      else if (w >= 1200) setCardSize({ width: 280, height: 340 });
+      else if (w >= 900) setCardSize({ width: 240, height: 320 });
+      else if (w >= 640) setCardSize({ width: 200, height: 260 });
+      else setCardSize({ width: 160, height: 200 });
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div
-      className="group cursor-pointer m-2 h-full w-full min-h-[220px] min-w-[160px] sm:min-h-[320px] sm:min-w-[260px] flex flex-col items-center relative"
+      className="group cursor-pointer m-2 h-full w-full flex flex-col items-center relative"
       onClick={handleView}
       {...cardMotion}
-      style={{ zIndex: 0 }}
+      style={{
+        zIndex: 0,
+        minWidth: cardSize.width,
+        maxWidth: cardSize.width,
+        minHeight: cardSize.height,
+      }}
     >
       <div className="flex-1 flex flex-col">
         <div
-          className="relative w-full h-[180px] sm:h-[320px] md:h-[260px] lg:h-[380px] xl:h-[400px] max-w-[98vw] sm:max-w-[260px] md:max-w-[280px] !xl:max-w-[400px] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/10"
+          className="relative rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/10"
           style={{
             background: bgColor,
             position: "relative",
             zIndex: 2,
+            width: cardSize.width,
+            height: cardSize.height,
+            maxWidth: "98vw",
           }}
         >
           {/* Floating Avatar */}
@@ -292,7 +318,6 @@ const StatusCard = ({ status, index }) => {
         </div>
       </div>
 
-      {/* ...existing code... */}
       <style>
         {`
         @keyframes gradient-border {

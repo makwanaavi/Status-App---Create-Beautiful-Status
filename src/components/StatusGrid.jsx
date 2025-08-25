@@ -22,7 +22,7 @@ const StatusGrid = () => {
       } else if (window.innerWidth >= 640) {
         setItemsPerPage(6);
       } else {
-        setItemsPerPage(3);
+        setItemsPerPage(12);
       }
     };
     handleResize();
@@ -56,28 +56,25 @@ const StatusGrid = () => {
       {/* Animated background */}
       <div className="absolute inset-0 z-0 pointer-events-none" />
       <div
-        className="flex flex-wrap gap-4 sm:gap-8 md:gap-10 relative z-10"
-        style={{
-          justifyContent: "flex-start",
-        }}
+        className="
+          grid 
+          grid-cols-1 
+          sm:grid-cols-2 
+          md:grid-cols-3 
+          lg:grid-cols-4 
+          xl:grid-cols-5 
+          gap-4 sm:gap-8 md:gap-10 
+          relative z-10
+        "
       >
         {pageStatuses.map((status, index) => (
-          <div
-            key={status.id}
-            className="flex justify-center items-stretch"
-            style={{ flex: "1 0 260px", maxWidth: 340 }}
-          >
-            <div className="w-full h-full flex">
-              <StatusCard status={status} index={index} />
-            </div>
-          </div>
+          <StatusCard key={status.id} status={status} index={index} />
         ))}
         {/* Empty slots to fill up the grid */}
         {Array.from({ length: emptySlots }).map((_, idx) => (
           <div
             key={`empty-${idx}`}
-            className="flex justify-center items-stretch opacity-0"
-            style={{ minWidth: 260, maxWidth: 340, minHeight: 320 }}
+            className="opacity-0"
           >
             {/* Empty placeholder */}
           </div>
@@ -151,3 +148,4 @@ const StatusGrid = () => {
 };
 
 export default StatusGrid;
+
