@@ -202,26 +202,23 @@ const StatusCard = ({ status, index }) => {
 
   return (
     <div
-      className="group cursor-pointer m-2 h-full w-full flex flex-col items-center relative"
+      className="group cursor-pointer h-full w-full flex flex-col items-center relative mx-auto"
+      // Added mx-auto for horizontal centering, removed any margin classes
       onClick={handleView}
       {...cardMotion}
       style={{
         zIndex: 0,
-        minWidth: cardSize.width,
-        maxWidth: cardSize.width,
-        minHeight: cardSize.height,
+        width: cardSize.width,
+        height: cardSize.height,
       }}
     >
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col w-full h-full">
         <div
-          className="relative rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/10"
+          className="relative rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/10 w-full h-full"
           style={{
             background: bgColor,
             position: "relative",
             zIndex: 2,
-            width: cardSize.width,
-            height: cardSize.height,
-            maxWidth: "98vw",
           }}
         >
           {/* Floating Avatar */}
@@ -343,3 +340,4 @@ const StatusCard = ({ status, index }) => {
 };
 
 export default StatusCard;
+
