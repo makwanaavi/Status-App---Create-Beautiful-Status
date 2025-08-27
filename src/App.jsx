@@ -31,7 +31,6 @@ const App = () => {
       <CategoryFilter />
       <StatusGrid />
       <StatusViewer />
-      <StatusEditor />
       <Footer />
     </div>
   );
@@ -46,6 +45,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/liked" element={<LikedStatuses />} />
           <Route path="/bookmarked" element={<BookmarkedStatuses />} />
+          <Route path="/create" element={<StatusEditor />} />
         </Routes>
       </Router>
     </Provider>

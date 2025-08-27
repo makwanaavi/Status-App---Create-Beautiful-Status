@@ -117,13 +117,14 @@ const Header = () => {
           </div>
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-2 sm:space-x-4">
-            <button
+            <Link
+                to="/create"
               onClick={openEditor}
               className="flex items-center space-x-2 bg-pink-600 text-white px-3 sm:px-4 py-2 rounded-full hover:shadow-lg transition text-sm sm:text-base font-semibold"
             >
               <Plus className="w-4 h-4" />
               <span className="hidden sm:inline">Create</span>
-            </button>
+            </Link>
             <Link to="/liked" className="relative">
               <motion.div
                 whileHover={{ scale: 1.1 }}
@@ -203,13 +204,14 @@ const Header = () => {
               >
                 FAQ
               </Link>
-              <button
-                onClick={openEditor}
+              {/* <Link
+                to="/create"
                 className="mt-6 flex items-center space-x-2 bg-pink-600 text-white px-4 py-3 rounded-full hover:shadow-lg transition text-base font-semibold w-full justify-center"
+                onClick={() => setMenuOpen(false)}
               >
                 <Plus className="w-5 h-5" />
                 <span>Create</span>
-              </button>
+              </Link> */}
               <div className="flex items-center justify-between mt-8 w-full">
                 <Link
                   to="/liked"

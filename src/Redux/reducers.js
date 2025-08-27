@@ -138,7 +138,6 @@ function statusReducer(state = statusInitialState, action) {
 
 const userInitialState = {
   currentUser: null,
-  isAuthenticated: false,
   savedStatuses: [],
   followedUsers: [],
 };
@@ -147,8 +146,7 @@ function userReducer(state = userInitialState, action) {
   switch (action.type) {
     case types.SET_CURRENT_USER:
       return { ...state, currentUser: action.payload };
-    case types.SET_AUTHENTICATED:
-      return { ...state, isAuthenticated: action.payload };
+
     case types.ADD_SAVED_STATUS:
       return {
         ...state,

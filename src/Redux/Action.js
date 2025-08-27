@@ -27,7 +27,6 @@ export const fetchStatuses = () => async (dispatch) => {
 
 // User actions
 export const setCurrentUser = (user) => ({ type: types.SET_CURRENT_USER, payload: user });
-export const setAuthenticated = (isAuth) => ({ type: types.SET_AUTHENTICATED, payload: isAuth });
 export const addSavedStatus = (id) => ({ type: types.ADD_SAVED_STATUS, payload: id });
 export const removeSavedStatus = (id) => ({ type: types.REMOVE_SAVED_STATUS, payload: id });
 export const followUser = (id) => ({ type: types.FOLLOW_USER, payload: id });

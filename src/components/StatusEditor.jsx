@@ -13,10 +13,14 @@ import {
   resetEditor,
   addStatus,
 } from "../Redux/Action";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const StatusEditor = () => {
   const dispatch = useDispatch();
   const canvasRef = useRef(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isRoute = location.pathname === "/create";
   const {
     text,
     font,
@@ -30,7 +34,11 @@ const StatusEditor = () => {
   } = useSelector((state) => state.editor);
 
   const handleClose = () => {
-    dispatch(setEditorOpen(false));
+    if (isRoute) {
+      navigate(-1);
+    } else {
+      dispatch(setEditorOpen(false));
+    }
   };
 
   const handleSave = () => {
@@ -91,7 +99,7 @@ const StatusEditor = () => {
     // Add text
     ctx.fillStyle = color;
     ctx.font = `${fontSize * 2}px ${font}`;
-    ctx.textAlign = alignment ;
+    ctx.textAlign = alignment;
     ctx.textBaseline = "middle";
 
     const x =
@@ -132,7 +140,7 @@ const StatusEditor = () => {
     link.click();
   };
 
-  if (!isEditorOpen) return null;
+  if (!isRoute && !isEditorOpen) return null;
 
   return (
     <AnimatePresence>
@@ -183,7 +191,7 @@ const StatusEditor = () => {
               </h2>
               <button
                 onClick={handleClose}
-                className="w-8 h-8 rounded-full bg-gray-100 hover:bg-pink-600 flex items-center justify-center transition-colors"
+                className="w-8 h-8 rounded-full bg-gray-100 hover:bg-pink-600  hover:text-white flex items-center justify-center transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -259,11 +267,7 @@ const StatusEditor = () => {
                   {["left", "center", "right"].map((align) => (
                     <button
                       key={align}
-                      onClick={() =>
-                        dispatch(
-                          setAlignment(align)
-                        )
-                      }
+                      onClick={() => dispatch(setAlignment(align))}
                       className={`flex-1 py-2 px-4 rounded-lg transition-colors ${
                         alignment === align
                           ? "bg-purple-100 text-purple-700"
@@ -287,9 +291,7 @@ const StatusEditor = () => {
                       key={index}
                       onClick={() => dispatch(setBackground(bg))}
                       className={`w-full h-12 rounded-lg border-2 transition-all ${
-                        background === bg
-                          ? ""
-                          : ""
+                        background === bg ? "" : ""
                       }`}
                       style={{ background: bg }}
                     />
@@ -324,4 +326,3 @@ const StatusEditor = () => {
 };
 
 export default StatusEditor;
-
