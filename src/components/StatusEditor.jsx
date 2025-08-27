@@ -61,6 +61,9 @@ const StatusEditor = ({ fullPage = false }) => {
     availableBackgrounds,
   } = useSelector((state) => state.editor);
   const [category, setCategory] = useState(CATEGORIES[1]); // Default to first real category, not "All"
+  // New: alignment as percentage for horizontal and vertical
+  const [alignX, setAlignX] = useState(50); // 0 = left, 100 = right
+  const [alignY, setAlignY] = useState(50); // 0 = top, 100 = bottom
 
   // Prefill editor if status data is passed via navigation
   useEffect(() => {
@@ -73,6 +76,9 @@ const StatusEditor = ({ fullPage = false }) => {
       dispatch(setBackground(s.background));
       dispatch(setAlignment("center")); // or s.alignment if available
       setCategory(s.category || CATEGORIES[1]);
+      // Optionally set alignX/alignY if present in status
+      if (s.alignX !== undefined) setAlignX(s.alignX);
+      if (s.alignY !== undefined) setAlignY(s.alignY);
     }
     // eslint-disable-next-line
   }, [location.state]);
@@ -102,11 +108,15 @@ const StatusEditor = ({ fullPage = false }) => {
       createdAt: new Date().toISOString().split("T")[0],
       tags: ["custom", "personal"],
       type: "quote",
+      alignX,
+      alignY,
     };
 
     dispatch(addStatus(newStatus));
     dispatch(resetEditor());
     setCategory(CATEGORIES[1]); // Reset to first real category
+    setAlignX(50);
+    setAlignY(50);
     dispatch(setEditorOpen(false));
   };
 
@@ -142,17 +152,11 @@ const StatusEditor = ({ fullPage = false }) => {
     // Add text
     ctx.fillStyle = color;
     ctx.font = `${fontSize * 2}px ${font}`;
-    ctx.textAlign = alignment;
-    ctx.textBaseline = "middle";
-
-    const x =
-      alignment === "left"
-        ? 50
-        : alignment === "right"
-        ? canvas.width - 50
-        : canvas.width / 2;
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
 
     // Word wrap
+    const maxWidth = canvas.width - 100;
     const words = text.split(" ");
     const lines = [];
     let currentLine = "";
@@ -160,7 +164,7 @@ const StatusEditor = ({ fullPage = false }) => {
     for (const word of words) {
       const testLine = currentLine + (currentLine ? " " : "") + word;
       const metrics = ctx.measureText(testLine);
-      if (metrics.width > canvas.width - 100) {
+      if (metrics.width > maxWidth) {
         lines.push(currentLine);
         currentLine = word;
       } else {
@@ -170,10 +174,15 @@ const StatusEditor = ({ fullPage = false }) => {
     lines.push(currentLine);
 
     const lineHeight = fontSize * 2.5;
-    const startY = canvas.height / 2 - (lines.length * lineHeight) / 2;
+    const totalTextHeight = lines.length * lineHeight;
+
+    // Calculate x, y based on alignX, alignY (0-100%)
+    const x = 50 + ((canvas.width - 100) * alignX) / 100;
+    const y = 50 + ((canvas.height - totalTextHeight - 100) * alignY) / 100;
 
     lines.forEach((line, index) => {
-      ctx.fillText(line, x, startY + index * lineHeight);
+      // Each line is left-aligned, but the block is positioned by alignX
+      ctx.fillText(line, x - maxWidth * (alignX / 100), y + index * lineHeight);
     });
 
     // Download
@@ -201,20 +210,45 @@ const StatusEditor = ({ fullPage = false }) => {
         >
           <div className="absolute inset-0 bg-black/5 pointer-events-none" />
           <div className="relative h-full p-4 sm:p-8 flex items-center justify-center">
-            <textarea
-              value={text}
-              onChange={(e) => dispatch(setText(e.target.value))}
-              placeholder="Start typing your status..."
-              className={`w-full h-full bg-transparent border-none outline-none resize-none placeholder-white/50 ${
-                fullPage ? "text-center" : ""
-              }`}
+            {/* Textarea with absolute positioning based on alignX/alignY */}
+            <div
               style={{
-                color,
-                fontSize: `clamp(14px, ${fontSize}px, 32px)`,
-                textAlign: alignment,
-                fontFamily: font,
+                position: "absolute",
+                left: `${alignX}%`,
+                top: `${alignY}%`,
+                transform: "translate(-50%, -50%)",
+                width: "calc(100% - 4rem)",
+                maxWidth: "100%",
+                height: "auto",
+                maxHeight: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                pointerEvents: "auto",
               }}
-            />
+            >
+              <textarea
+                value={text}
+                onChange={(e) => dispatch(setText(e.target.value))}
+                placeholder="Start typing your status..."
+                className={`w-full bg-transparent border-none outline-none resize-none placeholder-white/50 text-center`}
+                style={{
+                  color,
+                  fontSize: `clamp(14px, ${fontSize}px, 32px)`,
+                  fontFamily: font,
+                  overflow: "hidden",
+                  minHeight: "60px",
+                  maxHeight: "300px",
+                  padding: 0,
+                  margin: 0,
+                  background: "transparent",
+                  textAlign: "center",
+                  wordBreak: "break-word",
+                }}
+                rows={3}
+                maxLength={300}
+              />
+            </div>
           </div>
           <canvas ref={canvasRef} className="hidden" />
         </div>
@@ -324,20 +358,29 @@ const StatusEditor = ({ fullPage = false }) => {
             <label className="text-sm font-medium text-gray-700 mb-3 block">
               Text Alignment
             </label>
-            <div className="flex space-x-2">
-              {["left", "center", "right"].map((align) => (
-                <button
-                  key={align}
-                  onClick={() => dispatch(setAlignment(align))}
-                  className={`flex-1 py-2 px-4 rounded-lg transition-colors ${
-                    alignment === align
-                      ? "bg-purple-100 text-purple-700"
-                      : " text-gray-700 hover:bg-gray-50"
-                  }`}
-                >
-                  {align.charAt(0).toUpperCase() + align.slice(1)}
-                </button>
-              ))}
+            <div className="space-y-2">
+              <div>
+                <span className="text-xs text-gray-500">Horizontal: {alignX}%</span>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={alignX}
+                  onChange={(e) => setAlignX(Number(e.target.value))}
+                  className="w-full"
+                />
+              </div>
+              <div>
+                <span className="text-xs text-gray-500">Vertical: {alignY}%</span>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={alignY}
+                  onChange={(e) => setAlignY(Number(e.target.value))}
+                  className="w-full"
+                />
+              </div>
             </div>
           </div>
           {/* Background Selection */}
