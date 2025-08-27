@@ -54,6 +54,7 @@ const StatusEditor = ({ fullPage = false }) => {
     font,
     fontSize,
     color,
+    
     background,
     alignment,
     isEditorOpen,
