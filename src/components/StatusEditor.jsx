@@ -77,8 +77,6 @@ const StatusEditor = ({ fullPage = false }) => {
       id: Date.now().toString(),
       text: text.trim(),
       category: category,
-      author: "Anonymous",
-      authorAvatar: "", // or provide a default avatar URL if you want
       background,
       font,
       color,
