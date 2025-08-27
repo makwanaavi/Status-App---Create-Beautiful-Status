@@ -3,9 +3,11 @@ import { motion } from "framer-motion";
 import { Heart, Bookmark, Share2, Download, User } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { toggleLike, toggleSave, setSelectedStatus } from "../Redux/Action";
+import { useNavigate } from "react-router-dom";
 
 const StatusCard = ({ status, index }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLike = (e) => {
     e.stopPropagation();
@@ -105,7 +107,8 @@ const StatusCard = ({ status, index }) => {
   };
 
   const handleView = () => {
-    dispatch(setSelectedStatus(status));
+    // Pass status data via navigation state
+    navigate("/create", { state: { status } });
   };
 
   // Card styles
