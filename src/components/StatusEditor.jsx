@@ -22,7 +22,7 @@ const CATEGORIES = [
   "Sad",
   "Funny",
   "Life",
-  "Friendship", 
+  "Friendship",
   "Success",
   "Travel",
   "Nature",
@@ -174,8 +174,14 @@ const StatusEditor = ({ fullPage = false }) => {
 
     // Calculate x, y based on alignX, alignY (0-100%)
     let x;
-    if (alignment === "left") x = 50 + ((canvas.width - 100) * alignX) / 100 - maxWidth * (alignX / 100);
-    else if (alignment === "right") x = 50 + ((canvas.width - 100) * alignX) / 100 + maxWidth * ((100-alignX)/100);
+    if (alignment === "left")
+      x =
+        50 + ((canvas.width - 100) * alignX) / 100 - maxWidth * (alignX / 100);
+    else if (alignment === "right")
+      x =
+        50 +
+        ((canvas.width - 100) * alignX) / 100 +
+        maxWidth * ((100 - alignX) / 100);
     else x = 50 + ((canvas.width - 100) * alignX) / 100;
     const y = 50 + ((canvas.height - totalTextHeight - 100) * alignY) / 100;
 
@@ -258,7 +264,9 @@ const StatusEditor = ({ fullPage = false }) => {
         animate={fullPage ? false : { x: 0, opacity: 1 }}
         exit={fullPage ? false : { x: 400, opacity: 0 }}
         className={`w-[50%] bg-white shadow-2xl flex flex-col ${
-          fullPage ? "rounded-2xl border border-gray-200 mt-6 md:mt-0 md:ml-8" : ""
+          fullPage
+            ? "rounded-2xl border border-gray-200 mt-6 md:mt-0 md:ml-8"
+            : ""
         }`}
       >
         {/* Header */}
@@ -324,9 +332,7 @@ const StatusEditor = ({ fullPage = false }) => {
               min="12"
               max="48"
               value={fontSize}
-              onChange={(e) =>
-                dispatch(setFontSize(Number(e.target.value)))
-              }
+              onChange={(e) => dispatch(setFontSize(Number(e.target.value)))}
               className="w-full"
             />
           </div>
@@ -372,9 +378,11 @@ const StatusEditor = ({ fullPage = false }) => {
                 </button>
               ))}
             </div>
-            <div className="space-y-2">
-              <div>
-                <span className="text-xs text-gray-500">Horizontal: {alignX}%</span>
+            <div className="flex w-full gap-4 mt-12">
+              <div className="flex-1">
+                <span className="text-xs text-gray-500 block mb-1">
+                  Horizontal: {alignX}%
+                </span>
                 <input
                   type="range"
                   min="0"
@@ -384,8 +392,11 @@ const StatusEditor = ({ fullPage = false }) => {
                   className="w-full"
                 />
               </div>
-              <div>
-                <span className="text-xs text-gray-500">Vertical: {alignY}%</span>
+
+              <div className="flex-1">
+                <span className="text-xs text-gray-500 block mb-1">
+                  Vertical: {alignY}%
+                </span>
                 <input
                   type="range"
                   min="0"
@@ -468,5 +479,3 @@ const StatusEditor = ({ fullPage = false }) => {
 };
 
 export default StatusEditor;
-
-
