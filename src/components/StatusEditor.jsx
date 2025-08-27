@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Type, Palette, Image, Download, Share2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,10 +13,13 @@ import {
   resetEditor,
   addStatus,
 } from "../Redux/Action";
+import { useLocation, useParams } from "react-router-dom";
 
-const StatusEditor = () => {
+const StatusEditor = ({ fullPage = false }) => {
   const dispatch = useDispatch();
   const canvasRef = useRef(null);
+  const location = useLocation();
+  const params = useParams();
   const {
     text,
     font,
@@ -29,6 +32,23 @@ const StatusEditor = () => {
     availableBackgrounds,
   } = useSelector((state) => state.editor);
 
+  // Set initial category from route param if present
+  const initialCategory = params.category
+    ? decodeURIComponent(params.category)
+    : "Custom";
+  const [category, setCategory] = useState(initialCategory);
+
+  // If status is passed via navigation, use its category
+  useEffect(() => {
+    if (location.state && location.state.status) {
+      setCategory(location.state.status.category || initialCategory);
+      // ...set other fields as needed...
+    } else if (params.category) {
+      setCategory(decodeURIComponent(params.category));
+    }
+    // ...existing code...
+  }, [location.state, params.category]);
+
   const handleClose = () => {
     dispatch(setEditorOpen(false));
   };
@@ -39,7 +59,7 @@ const StatusEditor = () => {
     const newStatus = {
       id: Date.now().toString(),
       text: text.trim(),
-      category: "Custom",
+      category,
       author: "Anonymous",
       authorAvatar: "", // or provide a default avatar URL if you want
       background,
@@ -91,7 +111,7 @@ const StatusEditor = () => {
     // Add text
     ctx.fillStyle = color;
     ctx.font = `${fontSize * 2}px ${font}`;
-    ctx.textAlign = alignment ;
+    ctx.textAlign = alignment;
     ctx.textBaseline = "middle";
 
     const x =

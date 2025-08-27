@@ -15,6 +15,7 @@ import Contact from "./Contact";
 import LikedStatuses from "./pages/LikedStatuses";
 import BookmarkedStatuses from "./pages/BookmarkedStatuses";
 import Footer from "./components/Footer";
+import { useParams } from "react-router-dom";
 
 const App = () => {
   useEffect(() => {
@@ -32,6 +33,15 @@ const App = () => {
     </div>
   );
 
+  // Add a wrapper for the editor page with category param
+  const EditorPage = () => (
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <Header />
+      <StatusEditor fullPage={true} />
+      <Footer />
+    </div>
+  );
+
   return (
     <Provider store={store}>
       <Router>
@@ -42,6 +52,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/liked" element={<LikedStatuses />} />
           <Route path="/bookmarked" element={<BookmarkedStatuses />} />
+          <Route path="/create/:category" element={<EditorPage />} />
         </Routes>
       </Router>
     </Provider>
