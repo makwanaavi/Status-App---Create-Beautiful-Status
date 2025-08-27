@@ -284,6 +284,7 @@ const StatusEditor = ({ fullPage = false }) => {
         {/* Tools */}
         <div className="flex-1 p-4 sm:p-6 space-y-4 sm:space-y-6 overflow-y-auto">
           {/* Category Selection */}
+          <div className="flex w-full gap-4 justify-between">
           <div>
             <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-3">
               <span>Category</span>
@@ -321,6 +322,7 @@ const StatusEditor = ({ fullPage = false }) => {
                 </option>
               ))}
             </select>
+          </div>
           </div>
           {/* Font Size */}
           <div>
@@ -429,7 +431,7 @@ const StatusEditor = ({ fullPage = false }) => {
           </div>
         </div>
         {/* Actions */}
-        <div className="p-4 sm:p-6 border-t border-gray-200 space-y-2 sm:space-y-3">
+        <div className="p-4 border-t border-gray-200 flex gap-4" >
           <button
             onClick={handleDownload}
             disabled={!text.trim()}
