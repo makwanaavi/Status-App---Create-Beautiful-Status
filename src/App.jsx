@@ -53,10 +53,12 @@ const App = () => {
                 <StatusEditor fullPage={true} />
                 <Footer />
               </div>
+
             }
           />
         </Routes>
       </Router>
+      
     </Provider>
   );
 };
