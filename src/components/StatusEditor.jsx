@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Type, Palette, Image, Download, Share2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,34 @@ import {
   addStatus,
 } from "../Redux/Action";
 import { useLocation, useNavigate } from "react-router-dom";
+
+const CATEGORIES = [
+  "All",
+  "Love",
+  "Motivational",
+  "Sad",
+  "Funny",
+  "Life",
+  "Friendship",
+  "Success",
+  "Travel",
+  "Nature",
+  "Wisdom",
+  "Happiness",
+  "Dreams",
+  "Faith",
+  "Family",
+  "Attitude",
+  "Birthday",
+  "Good Morning",
+  "Good Night",
+  "Festival",
+  "Fashion",
+  "Sports",
+  "Music",
+  "Food",
+  "Technology",
+];
 
 const StatusEditor = ({ fullPage = false }) => {
   const dispatch = useDispatch();
@@ -32,6 +60,7 @@ const StatusEditor = ({ fullPage = false }) => {
     availableFonts,
     availableBackgrounds,
   } = useSelector((state) => state.editor);
+  const [category, setCategory] = useState(CATEGORIES[1]); // Default to first real category, not "All"
 
   const handleClose = () => {
     if (isRoute) {
@@ -47,7 +76,7 @@ const StatusEditor = ({ fullPage = false }) => {
     const newStatus = {
       id: Date.now().toString(),
       text: text.trim(),
-      category: "Custom",
+      category: category,
       author: "Anonymous",
       authorAvatar: "", // or provide a default avatar URL if you want
       background,
@@ -64,6 +93,7 @@ const StatusEditor = ({ fullPage = false }) => {
 
     dispatch(addStatus(newStatus));
     dispatch(resetEditor());
+    setCategory(CATEGORIES[1]); // Reset to first real category
     dispatch(setEditorOpen(false));
   };
 
@@ -199,6 +229,23 @@ const StatusEditor = ({ fullPage = false }) => {
         </div>
         {/* Tools */}
         <div className="flex-1 p-4 sm:p-6 space-y-4 sm:space-y-6 overflow-y-auto">
+          {/* Category Selection */}
+          <div>
+            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-3">
+              <span>Category</span>
+            </label>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            >
+              {CATEGORIES.filter((cat) => cat !== "All").map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+          </div>
           {/* Font Selection */}
           <div>
             <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-3">
