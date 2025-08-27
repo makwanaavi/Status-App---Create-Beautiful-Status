@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 const faqs = [
 	{
@@ -310,6 +311,7 @@ const FAQ = () => {
 					</div>
 				</div>
 			</div>
+			<Footer />
 		</>
 	);
 };
