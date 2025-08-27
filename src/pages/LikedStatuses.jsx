@@ -33,17 +33,14 @@ const LikedStatuses = () => {
             No liked statuses yet.
           </div>
         ) : (
-          <div className="flex gap-4 flex-wrap">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {pageLiked.map((status, idx) => (
-              <div
-                key={status.id}
-                className="flex justify-center items-stretch h-full"
-              >
+              <div key={status.id} className="flex justify-center">
                 <StatusCard status={status} index={idx} />
               </div>
             ))}
             {Array.from({ length: emptySlots }).map((_, idx) => (
-              <div key={`empty-liked-${idx}`} className="opacity-0 h-full">
+              <div key={`empty-liked-${idx}`} className="opacity-0">
                 {/* Empty placeholder */}
               </div>
             ))}
