@@ -46,7 +46,7 @@ const App = () => {
           <Route path="/liked" element={<LikedStatuses />} />
           <Route path="/bookmarked" element={<BookmarkedStatuses />} />
           <Route
-            path="/create"
+            path="/create/:category?"
             element={
               <div className="">
                 <Header />

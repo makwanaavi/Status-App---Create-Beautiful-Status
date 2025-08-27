@@ -13,7 +13,7 @@ import {
   resetEditor,
   addStatus,
 } from "../Redux/Action";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const CATEGORIES = [
   "All",
@@ -48,7 +48,8 @@ const StatusEditor = ({ fullPage = false }) => {
   const canvasRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const isRoute = location.pathname === "/create" || fullPage;
+  const params = useParams();
+  const isRoute = location.pathname.startsWith("/create") || fullPage;
   const {
     text,
     font,
@@ -60,7 +61,11 @@ const StatusEditor = ({ fullPage = false }) => {
     availableFonts,
     availableBackgrounds,
   } = useSelector((state) => state.editor);
-  const [category, setCategory] = useState(CATEGORIES[1]);
+  // Use category from params if present, otherwise default to CATEGORIES[1]
+  const initialCategory = params.category
+    ? decodeURIComponent(params.category)
+    : CATEGORIES[1];
+  const [category, setCategory] = useState(initialCategory);
   const [alignX, setAlignX] = useState(50); // 0 = left, 100 = right
   const [alignY, setAlignY] = useState(50); // 0 = top, 100 = bottom
 
@@ -74,12 +79,14 @@ const StatusEditor = ({ fullPage = false }) => {
       dispatch(setColor(s.color));
       dispatch(setBackground(s.background));
       dispatch(setAlignment(s.alignment || "center"));
-      setCategory(s.category || CATEGORIES[1]);
+      setCategory(s.category || initialCategory);
       if (s.alignX !== undefined) setAlignX(s.alignX);
       if (s.alignY !== undefined) setAlignY(s.alignY);
+    } else if (params.category) {
+      setCategory(decodeURIComponent(params.category));
     }
     // eslint-disable-next-line
-  }, [location.state]);
+  }, [location.state, params.category]);
 
   const handleClose = () => {
     if (isRoute) {
