@@ -60,8 +60,7 @@ const StatusEditor = ({ fullPage = false }) => {
     availableFonts,
     availableBackgrounds,
   } = useSelector((state) => state.editor);
-  const [category, setCategory] = useState(CATEGORIES[1]); // Default to first real category, not "All"
-  // New: alignment as percentage for horizontal and vertical
+  const [category, setCategory] = useState(CATEGORIES[1]);
   const [alignX, setAlignX] = useState(50); // 0 = left, 100 = right
   const [alignY, setAlignY] = useState(50); // 0 = top, 100 = bottom
 
@@ -71,12 +70,11 @@ const StatusEditor = ({ fullPage = false }) => {
       const s = location.state.status;
       dispatch(setText(s.text));
       dispatch(setFont(s.font));
-      dispatch(setFontSize(24)); // or s.fontSize if available
+      dispatch(setFontSize(24));
       dispatch(setColor(s.color));
       dispatch(setBackground(s.background));
-      dispatch(setAlignment("center")); // or s.alignment if available
+      dispatch(setAlignment(s.alignment || "center"));
       setCategory(s.category || CATEGORIES[1]);
-      // Optionally set alignX/alignY if present in status
       if (s.alignX !== undefined) setAlignX(s.alignX);
       if (s.alignY !== undefined) setAlignY(s.alignY);
     }
@@ -108,13 +106,14 @@ const StatusEditor = ({ fullPage = false }) => {
       createdAt: new Date().toISOString().split("T")[0],
       tags: ["custom", "personal"],
       type: "quote",
+      alignment,
       alignX,
       alignY,
     };
 
     dispatch(addStatus(newStatus));
     dispatch(resetEditor());
-    setCategory(CATEGORIES[1]); // Reset to first real category
+    setCategory(CATEGORIES[1]);
     setAlignX(50);
     setAlignY(50);
     dispatch(setEditorOpen(false));
@@ -123,10 +122,8 @@ const StatusEditor = ({ fullPage = false }) => {
   const handleDownload = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-
     canvas.width = 800;
     canvas.height = 600;
 
@@ -152,7 +149,7 @@ const StatusEditor = ({ fullPage = false }) => {
     // Add text
     ctx.fillStyle = color;
     ctx.font = `${fontSize * 2}px ${font}`;
-    ctx.textAlign = "left";
+    ctx.textAlign = alignment;
     ctx.textBaseline = "top";
 
     // Word wrap
@@ -160,7 +157,6 @@ const StatusEditor = ({ fullPage = false }) => {
     const words = text.split(" ");
     const lines = [];
     let currentLine = "";
-
     for (const word of words) {
       const testLine = currentLine + (currentLine ? " " : "") + word;
       const metrics = ctx.measureText(testLine);
@@ -177,12 +173,15 @@ const StatusEditor = ({ fullPage = false }) => {
     const totalTextHeight = lines.length * lineHeight;
 
     // Calculate x, y based on alignX, alignY (0-100%)
-    const x = 50 + ((canvas.width - 100) * alignX) / 100;
+    let x;
+    if (alignment === "left") x = 50 + ((canvas.width - 100) * alignX) / 100 - maxWidth * (alignX / 100);
+    else if (alignment === "right") x = 50 + ((canvas.width - 100) * alignX) / 100 + maxWidth * ((100-alignX)/100);
+    else x = 50 + ((canvas.width - 100) * alignX) / 100;
     const y = 50 + ((canvas.height - totalTextHeight - 100) * alignY) / 100;
 
     lines.forEach((line, index) => {
-      // Each line is left-aligned, but the block is positioned by alignX
-      ctx.fillText(line, x - maxWidth * (alignX / 100), y + index * lineHeight);
+      ctx.textAlign = alignment;
+      ctx.fillText(line, x, y + index * lineHeight);
     });
 
     // Download
@@ -231,10 +230,11 @@ const StatusEditor = ({ fullPage = false }) => {
                 value={text}
                 onChange={(e) => dispatch(setText(e.target.value))}
                 placeholder="Start typing your status..."
-                className={`w-full bg-transparent border-none outline-none resize-none placeholder-white/50 text-center`}
+                className={`w-full bg-transparent border-none outline-none resize-none placeholder-white/50`}
                 style={{
                   color,
                   fontSize: `clamp(14px, ${fontSize}px, 32px)`,
+                  textAlign: alignment,
                   fontFamily: font,
                   overflow: "hidden",
                   minHeight: "60px",
@@ -242,7 +242,6 @@ const StatusEditor = ({ fullPage = false }) => {
                   padding: 0,
                   margin: 0,
                   background: "transparent",
-                  textAlign: "center",
                   wordBreak: "break-word",
                 }}
                 rows={3}
@@ -258,7 +257,7 @@ const StatusEditor = ({ fullPage = false }) => {
         initial={fullPage ? false : { x: 400, opacity: 0 }}
         animate={fullPage ? false : { x: 0, opacity: 1 }}
         exit={fullPage ? false : { x: 400, opacity: 0 }}
-        className={`w-full md:w-80 bg-white shadow-2xl flex flex-col ${
+        className={`w-[50%] bg-white shadow-2xl flex flex-col ${
           fullPage ? "rounded-2xl border border-gray-200 mt-6 md:mt-0 md:ml-8" : ""
         }`}
       >
@@ -358,6 +357,21 @@ const StatusEditor = ({ fullPage = false }) => {
             <label className="text-sm font-medium text-gray-700 mb-3 block">
               Text Alignment
             </label>
+            <div className="flex space-x-2 mb-2">
+              {["left", "center", "right"].map((align) => (
+                <button
+                  key={align}
+                  onClick={() => dispatch(setAlignment(align))}
+                  className={`flex-1 py-2 px-4 rounded-lg transition-colors ${
+                    alignment === align
+                      ? "bg-purple-100 text-purple-700"
+                      : " text-gray-700 hover:bg-gray-50"
+                  }`}
+                >
+                  {align.charAt(0).toUpperCase() + align.slice(1)}
+                </button>
+              ))}
+            </div>
             <div className="space-y-2">
               <div>
                 <span className="text-xs text-gray-500">Horizontal: {alignX}%</span>
@@ -454,3 +468,5 @@ const StatusEditor = ({ fullPage = false }) => {
 };
 
 export default StatusEditor;
+
+
