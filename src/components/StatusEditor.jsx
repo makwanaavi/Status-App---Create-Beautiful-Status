@@ -429,7 +429,7 @@ const StatusEditor = ({ fullPage = false }) => {
           </div>
         </div>
         {/* Actions */}
-        <div className="p-4 sm:p-6 border-t border-gray-200 space-y-2 sm:space-y-3">
+        <div className="p-4 sm:p-6 border-t border-gray-200 flex space-x-4">
           <button
             onClick={handleDownload}
             disabled={!text.trim()}
