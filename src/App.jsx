@@ -15,11 +15,14 @@ import Contact from "./Contact";
 import LikedStatuses from "./pages/LikedStatuses";
 import BookmarkedStatuses from "./pages/BookmarkedStatuses";
 import Footer from "./components/Footer";
-import { useParams } from "react-router-dom";
 
 const App = () => {
   useEffect(() => {
-    store.dispatch(setStatuses(mockStatuses));
+    // Only set mockStatuses if there is no persisted state
+    const persisted = localStorage.getItem("reduxState");
+    if (!persisted) {
+      store.dispatch(setStatuses(mockStatuses));
+    }
   }, []);
 
   const HomePage = () => (
@@ -28,16 +31,6 @@ const App = () => {
       <CategoryFilter />
       <StatusGrid />
       <StatusViewer />
-      <StatusEditor />
-      <Footer />
-    </div>
-  );
-
-  // Add a wrapper for the editor page with category param
-  const EditorPage = () => (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      <Header />
-      <StatusEditor fullPage={true} />
       <Footer />
     </div>
   );
@@ -52,7 +45,16 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/liked" element={<LikedStatuses />} />
           <Route path="/bookmarked" element={<BookmarkedStatuses />} />
-          <Route path="/create/:category" element={<EditorPage />} />
+          <Route
+            path="/create"
+            element={
+              <div className="">
+                <Header />
+                <StatusEditor fullPage={true} />
+                <Footer />
+              </div>
+            }
+          />
         </Routes>
       </Router>
     </Provider>

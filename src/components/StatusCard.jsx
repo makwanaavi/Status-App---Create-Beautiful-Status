@@ -22,7 +22,7 @@ const StatusCard = ({ status, index }) => {
   const handleShare = async (e) => {
     e.stopPropagation();
     const shareUrl = `${window.location.origin}/status/${status.id}`;
-    const shareText = `${status.text}\n\n- ${status.author}\n${shareUrl}`;
+    const shareText = `${status.text}\n\n- \n${shareUrl}`;
     if (navigator.share) {
       try {
         await navigator.share({
@@ -107,8 +107,8 @@ const StatusCard = ({ status, index }) => {
   };
 
   const handleView = () => {
-    // Navigate to editor with category in route and pass status in state
-    navigate(`/create/${encodeURIComponent(status.category)}`, { state: { status } });
+    // Pass status data via navigation state
+    navigate("/create", { state: { status } });
   };
 
   // Card styles
@@ -182,16 +182,42 @@ const StatusCard = ({ status, index }) => {
   const avatarBg = isColorDark(bgColor) ? "#fff" : "#222";
   const avatarColor = isColorDark(bgColor) ? "#222" : "#fff";
 
+  // Responsive card size
+  const [cardSize, setCardSize] = React.useState({ width: 160, height: 220 });
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      const w = window.innerWidth;
+      if (w >= 1850) setCardSize({ width: 340, height: 400 });
+      else if (w >= 1600) setCardSize({ width: 340, height: 400 });
+      else if (w >= 1200) setCardSize({ width: 340, height: 400 });
+      else if (w >= 900) setCardSize({ width: 340, height: 400 });
+      else if (w >= 640) setCardSize({ width: 340, height: 400 });
+      else setCardSize({ width: 340, height: 400 })
+      ;
+    };
+
+    
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div
-      className="group cursor-pointer m-2 h-full w-full min-h-[320px] min-w-[260px] flex flex-col items-center relative"
+      className="group cursor-pointer h-full w-full flex flex-col items-center relative mx-auto"
+      // Added mx-auto for horizontal centering, removed any margin classes
       onClick={handleView}
       {...cardMotion}
-      style={{ zIndex: 0 }}
+      style={{
+        zIndex: 0,
+        width: cardSize.width,
+        height: cardSize.height,
+      }}
     >
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col w-full h-full">
         <div
-          className="relative w-full h-[320px] sm:h-[340px] md:h-[260px] lg:h-[380px] xl:h-[400px] max-w-[95vw] sm:max-w-[260px] md:max-w-[280px] !xl:max-w-[400px] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/10"
+          className="relative rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/10 w-full h-full"
           style={{
             background: bgColor,
             position: "relative",
@@ -295,7 +321,6 @@ const StatusCard = ({ status, index }) => {
         </div>
       </div>
 
-      {/* ...existing code... */}
       <style>
         {`
         @keyframes gradient-border {
@@ -318,3 +343,4 @@ const StatusCard = ({ status, index }) => {
 };
 
 export default StatusCard;
+
