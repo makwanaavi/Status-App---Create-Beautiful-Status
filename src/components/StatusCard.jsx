@@ -20,7 +20,7 @@ const StatusCard = ({ status, index }) => {
   const handleShare = async (e) => {
     e.stopPropagation();
     const shareUrl = `${window.location.origin}/status/${status.id}`;
-    const shareText = `${status.text}\n\n- ${status.author}\n${shareUrl}`;
+    const shareText = `${status.text}\n\n- \n${shareUrl}`;
     if (navigator.share) {
       try {
         await navigator.share({

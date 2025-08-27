@@ -54,7 +54,7 @@ const StatusViewer = () => {
     } else {
       // Fallback to clipboard
       await navigator.clipboard.writeText(
-        `${selectedStatus.text}\n\n- ${selectedStatus.author}`
+        `${selectedStatus.text}\n\n-`
       );
     }
   };
