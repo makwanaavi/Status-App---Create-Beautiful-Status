@@ -15,10 +15,12 @@ import Contact from "./Contact";
 import LikedStatuses from "./pages/LikedStatuses";
 import BookmarkedStatuses from "./pages/BookmarkedStatuses";
 import Footer from "./components/Footer";
+import useLenis from "./components/useLenis";
 
 
 
 const App = () => {
+  useLenis();
   useEffect(() => {
     // Only set mockStatuses if there is no persisted state
     const persisted = localStorage.getItem("reduxState");
