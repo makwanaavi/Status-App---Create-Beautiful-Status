@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Type, Palette, Image, Download, Share2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +22,7 @@ const CATEGORIES = [
   "Sad",
   "Funny",
   "Life",
-  "Friendship",
+  "Friendship", 
   "Success",
   "Travel",
   "Nature",
@@ -61,6 +61,21 @@ const StatusEditor = ({ fullPage = false }) => {
     availableBackgrounds,
   } = useSelector((state) => state.editor);
   const [category, setCategory] = useState(CATEGORIES[1]); // Default to first real category, not "All"
+
+  // Prefill editor if status data is passed via navigation
+  useEffect(() => {
+    if (location.state && location.state.status) {
+      const s = location.state.status;
+      dispatch(setText(s.text));
+      dispatch(setFont(s.font));
+      dispatch(setFontSize(24)); // or s.fontSize if available
+      dispatch(setColor(s.color));
+      dispatch(setBackground(s.background));
+      dispatch(setAlignment("center")); // or s.alignment if available
+      setCategory(s.category || CATEGORIES[1]);
+    }
+    // eslint-disable-next-line
+  }, [location.state]);
 
   const handleClose = () => {
     if (isRoute) {
